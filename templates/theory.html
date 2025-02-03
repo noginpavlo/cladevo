@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Cladevo by HIGHLANDER-95</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}" />
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+
+					<!-- Header -->
+					<header id="header">
+						<a href="index2.html" class="logo"><strong>Cladevo</strong> by HIGHLANDER-95</a>
+						<ul class="icons">
+                            <li><a href="https://github.com/noginpavlo" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+                            <li><a href="https://t.me/highlender0302" class="icon brands fa-telegram" target="_blank"><span class="label">Instagram</span></a></li>
+                            <li><a href="https://www.instagram.com/2seconds5pictures/" class="icon brands fa-instagram" target="_blank"><span class="label">Medium</span></a></li>
+						</ul>
+					</header>
+
+                    <!-- Text section -->
+                    <div class="theory-text-div">
+                        <h2 id="clustering" class="theory-h2-text">High Hierarchical Clustering Methods</h2>
+                        <p class="theory-text">Hierarchical clustering methods are commonly used for organizing data into a hierarchy of nested clusters. These methods can be broadly classified into two types: agglomerative and divisive. Agglomerative methods, such as UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-Joining (NJ), begin by treating each data point as a separate cluster and iteratively combine the closest clusters. In contrast, divisive methods start with a single cluster containing all data points and progressively split it into smaller clusters.</p>
+                        <p class="theory-text">Agglomerative methods typically produce a dendrogram, a tree-like structure where the leaves represent individual data points and the internal nodes represent the merging of clusters. The height at which clusters are merged reflects their dissimilarity. These methods are widely applied in areas such as phylogenetics, bioinformatics, and pattern recognition due to their ability to reveal hierarchical relationships among entities.</p>
+                        <hr/>
+
+                        <h2 id="upgma" class="theory-h2-text">UPGMA (Unweighted Pair Group Method with Arithmetic Mean)</h2>
+                        <p class="theory-text">UPGMA is a classical agglomerative hierarchical clustering method. It is characterized by its simplicity and computational efficiency. In UPGMA, at each step, the two closest clusters are merged, and the distance between the resulting cluster and any other cluster is computed as the average of all pairwise distances between the original clusters. The primary assumption of UPGMA is that all taxa evolve at a constant rate, which is known as the molecular clock hypothesis. This assumption leads to the "unweighted" aspect of the method, as no extra weight is given to any particular pairwise distance between clusters.</p>
+                        <p class="theory-text">While UPGMA has the advantage of being computationally efficient, it has limitations. The assumption of a molecular clock, which implies that all taxa evolve at the same rate, may not hold in many biological datasets. If evolutionary rates vary across taxa, UPGMA can produce misleading results, particularly in the context of phylogenetic tree reconstruction. Despite these shortcomings, UPGMA remains popular due to its simplicity and speed, especially for smaller datasets where the assumption of constant evolutionary rates might be reasonable [1][2].</p>
+                        <hr/>
+
+                        <h2 id="nj" class="theory-h2-text">Neighbor-Joining (NJ)</h2>
+                        <p class="theory-text">Neighbor-Joining (NJ) is an alternative agglomerative clustering method that is particularly useful in phylogenetic analysis. Unlike UPGMA, NJ does not assume that all taxa evolve at a constant rate, making it more flexible in accommodating datasets where evolutionary rates vary across taxa. The NJ algorithm works by iteratively selecting pairs of taxa (or clusters) that minimize the total branch length, which is a measure of the overall dissimilarity between taxa. The distance between the clusters is adjusted as new clusters are formed, and the tree is built by joining these pairs in a manner that minimizes the total dissimilarity.</p>
+                        <p class="theory-text">One of the key strengths of NJ is its ability to correct for the biases introduced by varying evolutionary rates, which can be a significant issue when using UPGMA. As a result, NJ is often preferred over UPGMA in phylogenetic studies where taxa have evolved at different rates. While NJ is more computationally intensive than UPGMA, it tends to produce more accurate trees, particularly in the presence of complex evolutionary processes [3][4].</p>
+                        <hr/>
+
+                        <h2 id="upgma-vs-nj" class="theory-h2-text">UPGMA vs. Neighbor-Joining:<br/> Which Method to Choose?</h2>
+                        <p class="theory-text">When deciding between UPGMA and NJ, several factors must be considered, particularly the assumptions made about the evolutionary process and the characteristics of the dataset.</p>
+                        <ol>
+                            <li>
+                                <h3>Assumptions:</h3>
+                                    <ul>
+                                        <li><p class="theory-text" style="text-indent: 0em;">UPGMA assumes that all taxa evolve at the same rate, a principle known as the molecular clock hypothesis. This assumption is often unrealistic for many biological datasets, especially when taxa are distantly related or have evolved at different rates. Thus, UPGMA is most appropriate when taxa are relatively closely related and where the molecular clock hypothesis is likely to hold.</p></li>
+                                        <li><p class="theory-text" style="text-indent: 0em;">NJ, on the other hand, does not rely on the molecular clock assumption. This makes it more suitable for datasets with varying evolutionary rates. As a result, NJ is often preferred in phylogenetic studies involving diverse taxa with different evolutionary histories.</p></li>
+                                    </ul>
+                            </li>
+                            <li>
+                               <h3>Accuracy:</h3>
+                                    <ul>
+                                        <li><p class="theory-text" style="text-indent: 0em;">NJ is generally considered more accurate than UPGMA, particularly in the context of phylogenetic reconstruction. The lack of a molecular clock assumption allows NJ to better capture the true evolutionary relationships between taxa. UPGMA, with its rigid assumption of constant evolutionary rates, can introduce significant errors, especially when taxa evolve at different rates.</p></li>
+                                        <li><p class="theory-text" style="text-indent: 0em;">In some cases, particularly when the dataset is small or when there is no significant variation in evolutionary rates, UPGMA may still provide reasonably accurate results. However, in most real-world scenarios, NJ is likely to be the better choice due to its flexibility and ability to account for evolutionary rate variation.</p></li>
+                                    </ul>
+                            </li>
+                            <li>
+                                <h3>Computational Efficiency:</h3>
+                                <ul>
+                                    <li><p class="theory-text" style="text-indent: 0em;">UPGMA is computationally simpler and faster than NJ, making it a practical choice for smaller datasets or when computational resources are limited. Its simplicity allows for quick, approximate solutions when exact phylogenetic relationships are not critical.</p></li>
+                                    <li><p class="theory-text" style="text-indent: 0em;">NJ, while more computationally intensive due to the need to iteratively adjust branch lengths and distances, is better suited for larger, more complex datasets where accuracy is a priority. Advances in computational methods and software have made NJ more accessible even for large-scale phylogenetic analysis.</p></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <h3>Application Context:</h3>
+                                <ul>
+                                    <li><p class="theory-text" style="text-indent: 0em;">UPGMA may be preferred when computational efficiency is critical or when there is a strong reason to believe that taxa evolve at a similar rate. It is also useful in initial exploratory analyses, where a rough estimation of cluster relationships is sufficient.</p></li>
+                                    <li><p class="theory-text" style="text-indent: 0em;">NJ is recommended in most phylogenetic studies, particularly when dealing with larger datasets or when there is significant variation in evolutionary rates. Its ability to handle these complexities makes it the more robust and reliable option for constructing accurate evolutionary trees.</p></li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <p class="theory-text">In summary, the choice between UPGMA and NJ depends on the specific characteristics of the dataset and the assumptions about the evolutionary process. While UPGMA remains a useful tool for simple and computationally efficient clustering, NJ is generally the preferred method in more complex and variable evolutionary scenarios [3][4][5].</p>
+                        <hr/>
+                        <h2 class="theory-h2-text">References</h2>
+                        <p class="theory-text" style="text-indent: 0em;">[1] Sokal, R. R., & Michener, C. D. (1958). A Statistical Method for Evaluating Systematic Relationships. University of Kansas Science Bulletin, 38, 1409-1438.</p>
+                        <p class="theory-text" style="text-indent: 0em;">[2] Sokal, R. R., & Rohlf, F. J. (1962). The Comparison of Dendrograms by Objective Methods. Taxon, 11(2), 33-40.</p>
+                        <p class="theory-text" style="text-indent: 0em;">[3] Saitou, N., & Nei, M. (1987). The Neighbor-Joining Method: A New Method for Reconstructing Phylogenetic Trees. Molecular Biology and Evolution, 4(4), 406-425.</p>
+                        <p class="theory-text" style="text-indent: 0em;">[4] Felsenstein, J. (1981). Evolutionary Trees from DNA Sequences: A Maximum Likelihood Approach. Journal of Molecular Evolution, 17(6), 368-376.</p>
+                        <p class="theory-text" style="text-indent: 0em;">[5] Hennig, W. (1966). Phylogenetic Systematics. University of Illinois Press.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Sidebar -->
+            <div id="sidebar">
+                <div class="inner">
+
+                    <!-- Menu -->
+                    <nav id="menu">
+                        <header class="major">
+                            <h2>Menu</h2>
+                        </header>
+                        <ul>
+                            <li><a href="{{ url_for('home') }}">Homepage</a></li>
+                            <li><a href="{{ url_for('calculation_parameters') }}">Build your tree</a></li>
+                            <li><a href="{{ url_for('documentation') }}">How to use</a></li>
+                            <li>
+                                <span class="opener">Theory</span>
+                                <ul>
+                                    <li><a href="{{ url_for('theory_section') }}#clustering">Hierarchical clustering methods</a></li>
+                                    <li><a href="{{ url_for('theory_section') }}#upgma">UPGMA</a></li>
+                                    <li><a href="{{ url_for('theory_section') }}#nj">Neighbor-Joining(NJ)</a></li>
+                                    <li><a href="{{ url_for('theory_section') }}#upgma-vs-nj">UPGMA or NJ</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">About</a></li>
+                        </ul>
+                    </nav>
+
+                    <!-- Section -->
+                    <section>
+                        <header class="major">
+                            <h2>Get in touch</h2>
+                        </header>
+                        <p>If you encounter any issues while using the web app, feel free to reach out to me via email to report the problem. I’m also open to collaboration opportunities in Sweden. Let's get in touch!</p>
+                        <ul class="contact">
+                            <li class="icon solid fa-envelope"><a href="#">nohinpavlo@gmail.com</a></li>
+                            <li class="icon solid fa-user">I'm Nohin Pavlo</li>
+                            <li class="icon solid fa-home">Sweden, Uppsala</li>
+                            <li class="icon solid fa-phone">+46 76 715 28 73</li>
+                        </ul>
+                    </section>
+
+                    <!-- Footer -->
+                    <footer id="footer">
+                        <p class="copyright">&copy; Untitled. All rights reserved.<br> Design by <a href="https://html5up.net">HTML5 UP</a>.</p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    		<!-- Scripts -->
+			<script src="{{ url_for('static', filename='/js/jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='/js/browser.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='/js/breakpoints.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='/js/util.js') }}"></script>
+			<script src="{{ url_for('static', filename='/js/main.js') }}"></script>
+    </body>
+</html>

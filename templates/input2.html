@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<!-- Frontend template info -->
+<html>
+	<head>
+		<title>Cladevo by HIGHLANDER-95</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}" />
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+
+					<!-- Header -->
+					<header id="header">
+						<a href="index2.html" class="logo"><strong>Cladevo</strong> by HIGHLANDER-95</a>
+						<ul class="icons">
+							<li><a href="https://github.com/noginpavlo" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+							<li><a href="https://t.me/highlender0302" class="icon brands fa-telegram" target="_blank"><span class="label">Instagram</span></a></li>
+							<li><a href="https://www.instagram.com/2seconds5pictures/" class="icon brands fa-instagram" target="_blank"><span class="label">Medium</span></a></li>
+						</ul>
+					</header>
+
+					<!-- Input Card Wrapper -->
+					<div id="input_cards_container">
+						<div class="card" id="input_card">
+							<div class="row gtr-uniform">
+								<div class="col-3 col-12-medium">
+									<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name">
+								</div>
+								<div class="row gtr-uniform col-9 col-12-medium">
+									<div class="col-11 col-12-small-*">
+										<textarea name="demo-message" id="demo-message" style="resize: vertical; height: 120px;" placeholder="Enter your message" rows="6"></textarea>
+										<div class="error-message"></div> <!-- Error message -->
+									</div>
+									<div class="col-1 col-12-small-*">
+										<ul class="actions" style="margin-top: 10px;">
+											<li>
+												<button class="button primary red-round-button trash-button">
+													<i class="icon solid fa-trash-alt"></i>
+												</button>
+											</li>
+										</ul>
+										<ul class="actions" style="margin-top: -15px;">
+											<li>
+												<button class="button yellow-round-button recycle-button">
+													<i class="icon solid fa-recycle"></i>
+												</button>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Add Button -->
+					<div class="col-2 col-12-small-*">
+						<button id="add-button" class="button primary red-round-button" disabled>
+							<i class="icon solid fa-plus"></i>
+						</button>
+					</div>
+
+					<!-- Build Tree Button -->
+					<div id="calculate_button_div" class="col-10 col-12-small-*">
+						<button id="card_button" class="button primary large fit" style="margin-bottom: 50px">Build Tree</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- Sidebar -->
+		<div id="sidebar">
+			<div class="inner">
+
+				<!-- Menu -->
+				<nav id="menu">
+					<header class="major">
+						<h2>Menu</h2>
+					</header>
+					<ul>
+						<li><a href="{{ url_for('home') }}">Homepage</a></li>
+						<li><a href="{{ url_for('calculation_parameters') }}">Build your tree</a></li>
+						<li><a href="{{ url_for('home') }}">How to use</a></li>
+						<li>
+							<span class="opener">Theory</span>
+							<ul>
+								<li><a href="{{ url_for('theory_section') }}#clustering">Hierarchical clustering methods</a></li>
+								<li><a href="{{ url_for('theory_section') }}#upgma">UPGMA</a></li>
+								<li><a href="{{ url_for('theory_section') }}#nj">Neighbor-Joining(NJ)</a></li>
+								<li><a href="{{ url_for('theory_section') }}#upgma-vs-nj">UPGMA or NJ</a></li>
+							</ul>
+				</li>
+				<li><a href="#">About</a></li>
+					</ul>
+				</nav>
+
+				<!-- Section -->
+				<section>
+					<header class="major">
+						<h2>Get in touch</h2>
+					</header>
+					<p>If you encounter any issues while using the web app, feel free to reach out to me via email to report the problem. I’m also open to collaboration opportunities in Sweden. Let's get in touch!</p>
+					<ul class="contact">
+						<li class="icon solid fa-envelope"><a href="#">nohinpavlo@gmail.com</a></li>
+						<li class="icon solid fa-user">I'm Nohin Pavlo</li>
+						<li class="icon solid fa-home">Sweden, Uppsala</li>
+						<li class="icon solid fa-phone">+46 76 715 28 73</li>
+					</ul>
+				</section>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<p class="copyright">&copy; Untitled. All rights reserved.<br> Design by <a href="https://html5up.net">HTML5 UP</a>.</p>
+				</footer>
+			</div>
+		</div>
+
+		<!-- Scripts -->
+		<script src="{{ url_for('static', filename='/js/jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/browser.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/breakpoints.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/util.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/main.js') }}"></script>
+
+		<script>
+			$(document).ready(function() {
+				// Function to add a new input card
+				$('#add-button').click(function() {
+					var newCard = $('#input_cards_container .card').first().clone(); // Clone the first card
+					// Reset the inputs in the new card
+					newCard.find('input').val('');
+					newCard.find('textarea').val('').css('height', '120px');
+					// Reset the error message
+					newCard.find('.error-message').text('');
+					$('#input_cards_container').append(newCard); // Append it below the existing cards
+					checkFormValidation(); // Revalidate form after adding a new card
+				});
+
+				// Function to delete a specific card, except the last one
+				$(document).on('click', '.trash-button', function() {
+					var cardContainer = $('#input_cards_container'); // Get the container of all cards
+					var card = $(this).closest('.card'); // Find the card containing the clicked trash button
+
+					// Check if this is the last card
+					if (cardContainer.children('.card').length > 1) {
+						card.remove(); // Remove the card if it's not the last one
+					} else {
+						alert("You cannot delete the last card."); // Show alert if trying to delete the last card
+					}
+				});
+
+				// Function to reset a specific card's input fields
+				$(document).on('click', '.recycle-button', function() {
+					var card = $(this).closest('.card'); // Find the card containing the recycle button
+					card.find('#demo-name').val(''); // Reset name field
+					card.find('#demo-message').val(''); // Reset message field
+					card.find('#demo-message').css('height', '120px'); // Reset height of textarea
+					card.find('.error-message').text(''); // Reset error message
+				});
+
+				// Validate form and handle input capitalization
+				const addButton = $('#add-button');
+				const demoName = $('#demo-name');
+				const demoMessage = $('#demo-message');
+
+				// Capitalize input and validate nucleotides
+				$(document).on('input', '#demo-message', function() {
+					let message = $(this).val().toUpperCase();  // Capitalize all characters
+					$(this).val(message);
+
+					// Check if message contains only A, T, C, G
+					if (/[^ATCG]/.test(message)) {
+						$(this).next('.error-message').text("Please only use A, T, C, or G.");
+					} else {
+						$(this).next('.error-message').text("");
+					}
+
+					checkFormValidation();
+				});
+
+				// Form validation function
+				function checkFormValidation() {
+					let isValid = true;
+					const nameValue = demoName.val();
+					const messageValue = demoMessage.val();
+
+					// Enable the add button only if fields are valid
+					if (nameValue === "" || messageValue === "" || /[^ATCG]/.test(messageValue)) {
+						isValid = false;
+					}
+
+					addButton.prop('disabled', !isValid);
+				}
+
+				// Initial validation on page load
+				checkFormValidation();
+
+				// Send data to Flask backend on 'Build Tree' button click
+				$('#card_button').click(function(e) {
+					e.preventDefault(); // Prevent default action
+
+					// Collect all names and message data
+					let names = [];
+					let messages = [];
+
+					$('#input_cards_container .card').each(function() {
+						let name = $(this).find('#demo-name').val().trim();
+						let message = $(this).find('#demo-message').val().trim();
+
+						if (name && message) {
+							names.push(name);
+							messages.push(message);
+						}
+					});
+
+					// Send data to Flask backend
+					$.ajax({
+						url: '/submit_sequences',
+						type: 'POST',
+						data: {
+							'sequence_name[]': names,
+							'sequence_data[]': messages
+						},
+						success: function(response) {
+							if (response.redirect_url) {
+								// Redirect the browser to the new page
+								window.location.href = response.redirect_url;
+							} else {
+								alert('Error: No redirect URL provided by the server.');
+							}
+						},
+						error: function(error) {
+							alert('Error occurred while submitting sequences.');
+									}
+					});
+				});
+			});
+		</script>
+
+	</body>
+</html>
+

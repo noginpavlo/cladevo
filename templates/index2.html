@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<!-- Frontend template info
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Cladevo by HIGHLANDER-95</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index2.html" class="logo"><strong>Cladevo</strong> by HIGHLANDER-95</a>
+									<ul class="icons">
+										<li><a href="https://github.com/noginpavlo" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+										<li><a href="https://t.me/highlender0302" class="icon brands fa-telegram" target="_blank"><span class="label">Instagram</span></a></li>
+										<li><a href="https://www.instagram.com/2seconds5pictures/" class="icon brands fa-instagram" target="_blank"><span class="label">Medium</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Banner -->
+								<section id="banner">
+									<div class="row gtr-uniform">
+										<div class="col-5 col-12-small">
+											<header>
+												<h1>Welcome to<br />
+													Cladevo</h1>
+												<p>A free website where you can build phylogenetic trees just like that <a class="icon solid fa-arrow-circle-right"></a></p>
+											</header>
+											<p>Cladevo is a web-based tool for creating dendrograms using UPGMA and Neighbor-Joining hierarchical clustering methods. It features a user-friendly interface, supports FASTA files, and allows manual sequence input—making it an accessible and efficient solution for research and learning without the need for complex software.</p>
+											<ul class="actions">
+												<li><a href="{{ url_for('calculation_parameters') }}" class="button primary">Get Started</a></li>
+												<li><a href="{{ url_for('documentation') }}" class="button big">How to use</a></li>
+											</ul>
+										</div>
+										<div class="col-7 col-12-small">
+											<div class="carousel-container">
+												<div class="carousel">
+													<div class="carousel-item"><img src="{{ url_for('static', filename='images/tree4.png') }}" alt="Image 1" /></div>
+													<div class="carousel-item"><img src="{{ url_for('static', filename='images/tree6.png') }}" alt="Image 2" /></div>
+													<div class="carousel-item"><img src="{{ url_for('static', filename='images/upgma1.png') }}" alt="Image 3" /></div>
+													<div class="carousel-item"><img src="{{ url_for('static', filename='images/upgma2.png') }}" alt="Image 4" /></div>
+													<div class="carousel-item"><img src="{{ url_for('static', filename='images/nj1.png') }}" alt="Image 5" /></div>
+												</div>
+												<div class="carousel-controls">
+													<span class="prev">&#10094;</span>
+													<span class="next">&#10095;</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Cladevo features</h2>
+									</header>
+									<div class="features">
+										<article>
+											<span class="icon solid fa-chart-pie"></span>
+											<div class="content">
+												<h3>Flexible data input</h3>
+												<p>You can build a dendrogram using FASTA files containing two or more sequences. Alternatively, you may input sequences manually or use Excel files for data input. For guidance on formatting your data in Excel, please refer to the provided instructions <a class="blue-ref" href="{{ url_for('documentation') }}">here.</a></p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-robot"></span>
+											<div class="content">
+												<h3>Complete automation</h3>
+												<p>The calculation process is fully automated and requires no additional action beyond data input. Steps such as sequence alignment, dissimilarity matrix calculation, dendrogram construction, and visualization are entirely automated, eliminating the need for user intervention.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-dove"></span>
+											<div class="content">
+												<h3>Cladevo is free</h3>
+												<p>Cladevo is completely free to use, offering full access to all features without requiring a subscription or user authentication. It is entirely ad-free, ensuring a distraction-free experience for users.
+													Whether you're a student exploring clustering methods or a researcher seeking quick data insights, Cladevo provides a efficient and accessible tool for sequence analysis.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-user-graduate"></span>
+											<div class="content">
+												<h3>Contains educational materials</h3>
+												<p>Cladevo provides all the educational resources necessary to use the application effectively and more. Comprehensive video tutorials are available in the <a class="blue-ref" href="{{ url_for('documentation') }}">How to Use</a> section. Additionally, the <a class="blue-ref" href="{{ url_for('theory_section') }}#clustering"> Theory</a> section offers an overview of the foundational concepts behind the UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-Joining algorithms.</p>
+											</div>
+										</article>
+									</div>
+								</section>
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="{{ url_for('home') }}">Homepage</a></li>
+										<li><a href="{{ url_for('calculation_parameters') }}">Build your tree</a></li>
+										<li><a href="{{ url_for('documentation') }}">How to use</a></li>
+										<li>
+											<span class="opener">Theory</span>
+											<ul>
+												<li><a href="{{ url_for('theory_section') }}#clustering">Hierarchical clustering methods</a></li>
+												<li><a href="{{ url_for('theory_section') }}#upgma">UPGMA</a></li>
+												<li><a href="{{ url_for('theory_section') }}#nj">Neighbor-Joining(NJ)</a></li>
+												<li><a href="{{ url_for('theory_section') }}#upgma-vs-nj">UPGMA or NJ</a></li>
+											</ul>
+										</li>
+										<li><a href="#">About</a></li>
+									</ul>
+								</nav>
+							 <!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>If you encounter any issues while using the web app, feel free to reach out to me via email to report the problem. I’m also open to collaboration opportunities in Sweden. Let's get in touch!</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">nohinpavlo@gmail.com</a></li>
+										<li class="icon solid fa-user">I'm Nohin Pavlo</li>
+										<li class="icon solid fa-home">Sweden, Uppsala</li>
+										<li class="icon solid fa-phone">+46 76 715 28 73</li>
+									</ul>
+								</section>
+								<!-- Footer -->
+									<footer id="footer">
+										<p class="copyright">&copy; Untitled. All rights reserved.<br> Design by <a href="https://html5up.net">HTML5 UP</a>.</p>
+									</footer>
+						</div>
+					</div>
+			</div>
+		<!-- Scripts -->
+			<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='js/browser.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='js/breakpoints.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='js/util.js') }}"></script>
+			<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const carousel = document.querySelector('.carousel');
+		const items = document.querySelectorAll('.carousel-item');
+		const prev = document.querySelector('.prev');
+		const next = document.querySelector('.next');
+		let index = 0;
+
+		const updateCarousel = () => {
+			carousel.style.transform = `translateX(-${index * 100}%)`;
+		};
+
+		prev.addEventListener('click', () => {
+			index = (index - 1 + items.length) % items.length;
+			updateCarousel();
+		});
+
+		next.addEventListener('click', () => {
+			index = (index + 1) % items.length;
+			updateCarousel();
+		});
+	});
+	</script>
+	</body>
+</html>

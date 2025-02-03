@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+</head>
+<body class="is-preload">
+  <!-- Wrapper -->
+  <div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+      <div class="inner">
+
+        <!-- Header -->
+        <header id="header">
+          <a href="index2.html" class="logo"><strong>Cladevo</strong> by HIGHLANDER-95</a>
+          <ul class="icons">
+            <li><a href="https://github.com/noginpavlo" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+            <li><a href="https://t.me/highlender0302" class="icon brands fa-telegram" target="_blank"><span class="label">Instagram</span></a></li>
+            <li><a href="https://www.instagram.com/2seconds5pictures/" class="icon brands fa-instagram" target="_blank"><span class="label">Medium</span></a></li>
+          </ul>
+        </header>
+
+        <!-- Parameter input area wrapped inside a card -->
+        <div class="card">
+          <div class="inner">
+            <div class="row gtr-uniform">
+              <section>
+                <!-- "Parameters input" -->
+                <header class="major">
+                  <h2 id="param_inp">Parameter input</h2>
+                </header>
+              </section>
+            </div>
+            <div>
+             <!-- "Choosing method" -->
+                <form id="method-form" method="post" action="#">
+                  <div class="row gtr-uniform">
+                    <div class="col-12 col-12-small">
+                      <h3>Choose Calculation Method:</h3>
+                    </div>
+                    <div class="col-3 col-12-small">
+                      <input type="radio" id="demo-priority-UPGMA" name="demo-priority" value="upgma" checked>
+                      <label for="demo-priority-UPGMA">UPGMA</label>
+                    </div>
+                    <div class="col-3 col-12-small">
+                      <input type="radio" id="demo-priority-NJ" name="demo-priority" value="nj">
+                      <label for="demo-priority-NJ">Neighbor Joining</label>
+                    </div>
+                  </div>
+
+                  <!-- Hidden input to store the selected method -->
+                  <input type="hidden" id="chosen-method" name="chosen-method">
+                </form>
+            </div>
+            <div>
+              <!-- "Choosing data input type" -->
+              <form method="post" action="#">
+                <div class="row gtr-uniform">
+                  <div class="col-12 col-12-small">
+                    <h3>Input Data Type:</h3>
+                  </div>
+                  <div class="col-12">
+                    <select name="demo-category" id="demo-category">
+                      <option value="">- Choose data input type -</option>
+                      <option value="1">FASTA file</option>
+                      <option value="2">Excel file</option>
+                      <option value="3">Manual sequence input</option>
+                    </select>
+                  </div>
+
+                  <!-- File Upload Section (Hidden by default) -->
+                  <div id="file-upload-section" class="col-12" style="display: none;">
+                    <section>
+                      <header class="major">
+                        <p>Select a file to upload.</p>
+                      </header>
+                      <form action="/submit_sequences" method="post" enctype="multipart/form-data">
+                        <div class="fields">
+                          <!-- File Upload Button -->
+                          <div class="field half">
+                            <label for="file-upload" class="button icon solid fa-upload">Choose File</label>
+                            <input type="file" name="file-upload" id="file-upload" style="display: none;" accept=".fasta, .xls, .xlsx"/>
+                          </div>
+                          <!-- Read-Only Text Input -->
+                          <div class="field half">
+                            <input
+                              type="text"
+                              name="file-description"
+                              id="file-description"
+                              placeholder="Select your file"
+                              readonly />
+                          </div>
+                        </div>
+                      </form>
+                    </section>
+                  </div>
+
+                  <!-- Submit Button Section -->
+                  <div class="col-12">
+                    <ul class="actions">
+                      <li>
+                        <a id="submit-button" href="#" class="button primary">Calculate</a>
+                      </li>
+                      <li><input type="reset" value="Reset"></li>
+                    </ul>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="{{ url_for('home') }}">Homepage</a></li>
+										<li><a href="{{ url_for('calculation_parameters') }}">Build your tree</a></li>
+										<li><a href="{{ url_for('documentation') }}">How to use</a></li>
+										<li>
+											<span class="opener">Theory</span>
+											<ul>
+												<li><a href="{{ url_for('theory_section') }}#clustering">Hierarchical clustering methods</a></li>
+                                                <li><a href="{{ url_for('theory_section') }}#upgma">UPGMA</a></li>
+                                                <li><a href="{{ url_for('theory_section') }}#nj">Neighbor-Joining(NJ)</a></li>
+                                                <li><a href="{{ url_for('theory_section') }}#upgma-vs-nj">UPGMA or NJ</a></li>
+											</ul>
+										</li>
+										<li><a href="#">About</a></li>
+									</ul>
+								</nav>
+							 <!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>If you encounter any issues while using the web app, feel free to reach out to me via email to report the problem. I’m also open to collaboration opportunities in Sweden. Let's get in touch!</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">nohinpavlo@gmail.com</a></li>
+										<li class="icon solid fa-user">I'm Nohin Pavlo</li>
+										<li class="icon solid fa-home">Sweden, Uppsala</li>
+										<li class="icon solid fa-phone">+46 76 715 28 73</li>
+									</ul>
+								</section>
+								<!-- Footer -->
+									<footer id="footer">
+										<p class="copyright">&copy; Untitled. All rights reserved.<br> Design by <a href="https://html5up.net">HTML5 UP</a>.</p>
+									</footer>
+						</div>
+					</div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='/js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='/js/browser.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='/js/breakpoints.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='/js/util.js') }}"></script>
+  <script src="{{ url_for('static', filename='/js/main.js') }}"></script>
+
+  <!-- Script for displaying the filename in textfield -->
+    <script>
+    // JavaScript to update the input field with the file name
+    const fileInput = document.getElementById('file-upload');
+    const fileDescription = document.getElementById('file-description');
+    const dataTypeSelect = document.getElementById('demo-category');
+    const fileUploadSection = document.getElementById('file-upload-section');
+    const submitButton = document.getElementById('submit-button');
+
+    // Handling radio button selections (UPGMA or Neighbor Joining)
+    const upgmaRadio = document.getElementById('demo-priority-UPGMA');
+    const njRadio = document.getElementById('demo-priority-NJ');
+    const chosenMethodInput = document.getElementById('chosen-method');
+
+    // Event listener for radio buttons to set the chosen method in hidden input
+    upgmaRadio.addEventListener('change', function() {
+      if (this.checked) {
+        chosenMethodInput.value = 'upgma'; // Set to 'upgma' if UPGMA is selected
+      }
+    });
+
+    njRadio.addEventListener('change', function() {
+      if (this.checked) {
+        chosenMethodInput.value = 'nj'; // Set to 'nj' if Neighbor Joining is selected
+      }
+    });
+
+    // Initially set the hidden input when the page loads (in case UPGMA is selected by default)
+    chosenMethodInput.value = upgmaRadio.checked ? 'upgma' : 'nj';
+
+    // JavaScript to update the input field with the file name
+    fileInput.addEventListener('change', () => {
+      // Check if a file is selected
+      if (fileInput.files.length > 0) {
+        fileDescription.value = fileInput.files[0].name; // Set the file name in the input
+      } else {
+        fileDescription.value = ''; // Reset the input field if no file is selected
+        fileDescription.placeholder = "Upload your file here"; // Reset placeholder
+      }
+    });
+
+    // Function to handle changes in the selected input type
+    dataTypeSelect.addEventListener('change', function () {
+      const selectedValue = this.value;
+
+      if (selectedValue === '1' || selectedValue === '2') {
+        // Show file upload section for FASTA or Excel files
+        fileUploadSection.style.display = 'block';
+      } else {
+        // Hide file upload section if "Manual sequence input" is selected
+        fileUploadSection.style.display = 'none';
+      }
+
+      // Change the submit button text and href based on input type selection
+      if (selectedValue === '3') {
+        submitButton.textContent = 'Input sequences';
+        submitButton.href = "{{ url_for('input_seq') }}"; // Redirect to manual input route
+      } else {
+        submitButton.textContent = 'Calculate';
+        submitButton.href = "#"; // Ensure file upload functionality remains intact
+      }
+    });
+
+    // Handle form submission when the submit button is clicked
+    submitButton.addEventListener('click', function (e) {
+      const selectedValue = dataTypeSelect.value;
+      const method = chosenMethodInput.value; // Get the chosen method value (upgma or nj)
+
+      if (selectedValue === '1' || selectedValue === '2') {
+        e.preventDefault(); // Prevent default anchor behavior
+
+        const formData = new FormData();
+        const file = fileInput.files[0];
+
+        if (!file) {
+          alert("Please select a file to upload.");
+          return;
+        }
+
+        formData.append('file-upload', file);
+
+        // Use jQuery's AJAX to send the file data
+        $.ajax({
+          url: '/submit_file',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(response) {
+           	if (response.redirect_url) {
+                // Redirect the browser to the new page
+                window.location.href = response.redirect_url;
+            } else {
+                alert('Error: No redirect URL provided by the server.');
+            }
+        },
+          error: function(xhr, status, error) {
+            console.error(error);
+            alert("An error occurred during file upload.");
+          }
+        });
+      }
+
+      // Send the method to the backend
+      $.ajax({
+        url: '/get-method', // New route to update the global method variable
+        type: 'POST',
+        data: { method: method }, // Send the selected method ('upgma' or 'nj')
+        success: function(response) {
+          console.log("Method updated on backend");
+        },
+        error: function(xhr, status, error) {
+          console.error("Error updating method:", error);
+        }
+      });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- Frontend template info
+     Editorial by HTML5 UP
+     html5up.net | @ajlkn
+     Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <title>Cladevo - by HIGHLANDER-95</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+    </head>
+    <body class="is-preload">
+        <!-- Wrapper -->
+        <div id="wrapper">
+            <!-- Main -->
+            <div id="main">
+                <div class="inner">
+                    <!-- Header -->
+                    <header id="header">
+                        <a href="index.html" class="logo"><strong>Cladevo</strong> by HIGHLANDER-95</a>
+                        <ul class="icons">
+                            <li><a href="https://github.com/noginpavlo" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+                            <li><a href="https://t.me/highlender0302" class="icon brands fa-telegram" target="_blank"><span class="label">Instagram</span></a></li>
+                            <li><a href="https://www.instagram.com/2seconds5pictures/" class="icon brands fa-instagram" target="_blank"><span class="label">Medium</span></a></li>
+                        </ul>
+                    </header>
+                    <!-- Content -->
+                    <section id="result-tree-section">
+                        <div id="image-and-button-container">
+                            <header class="main">
+                                <h1 id="result-tree-heading">Result Tree</h1>
+                            </header>
+                            <span class="image main" id="result-tree-image">
+                                <img src="{{ url_for('static', filename='plots/tree_' + unique_id + '.png') }}" alt="Phylogenetic Tree">
+                            </span>
+                            <!-- Download Button -->
+                            <a href="{{ url_for('static', filename='plots/tree_' + unique_id + '.png') }}" class="button primary icon solid fa-download" download="tree.png">Download</a>
+                            <a href="{{ url_for('home') }}" class="button">Home</a>
+                            <hr class="major" />
+                        </div>
+                    </section>
+                </div>
+            </div>
+                    <!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="{{ url_for('home') }}">Homepage</a></li>
+										<li><a href="{{ url_for('calculation_parameters') }}">Build your tree</a></li>
+										<li><a href="{{ url_for('documentation') }}">How to use</a></li>
+										<li>
+											<span class="opener">Theory</span>
+											<ul>
+												<li><a href="{{ url_for('theory_section') }}#clustering">Hierarchical clustering methods</a></li>
+                                                <li><a href="{{ url_for('theory_section') }}#upgma">UPGMA</a></li>
+                                                <li><a href="{{ url_for('theory_section') }}#nj">Neighbor-Joining(NJ)</a></li>
+                                                <li><a href="{{ url_for('theory_section') }}#upgma-vs-nj">UPGMA or NJ</a></li>
+											</ul>
+										</li>
+										<li><a href="#">About</a></li>
+									</ul>
+								</nav>
+							 <!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>If you encounter any issues while using the web app, feel free to reach out to me via email to report the problem. I’m also open to collaboration opportunities in Sweden. Let's get in touch!</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">nohinpavlo@gmail.com</a></li>
+										<li class="icon solid fa-user">I'm Nohin Pavlo</li>
+										<li class="icon solid fa-home">Sweden, Uppsala</li>
+										<li class="icon solid fa-phone">+46 76 715 28 73</li>
+									</ul>
+								</section>
+								<!-- Footer -->
+									<footer id="footer">
+										<p class="copyright">&copy; Untitled. All rights reserved.<br> Design by <a href="https://html5up.net">HTML5 UP</a>.</p>
+									</footer>
+						</div>
+					</div>
+        </div>
+        <!-- Scripts -->
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/browser.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/breakpoints.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/util.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    </body>
+</html>
