@@ -1,0 +1,73 @@
+Plans for 11-12-2024
+
+1. I want to thik on how to make file input work and build a tree
+
+1.1 To do that I need to pass the file directly to sequence alignment function
+ in case of FASTA input
+1.2 In case of Excel file format inpput I need to pass the data directly to dissimilarity_matrix() function
+ as it assumes user's manual alignment
+------------
+
+2. After that I need to think about how to make calculations perform in a separate thread.
+
+2.1 To do that I need to build the file accepting part first
+
+I basically did nothin of the above. Good luck tomorow! 
+
+
+Plans for 12-12-2-24
+
+3.1 I have realized that I actually need to send a responce to Flask backend that contains file.
+ It is challenging to do because of that <a> tag which serves as a button. I need to figure out how to pass
+the file using JavaScript other than regular request responce via POST.
+
+
+Plans for 17-12-2024
+
+4.1 I made it accept the file and send it to backend. The problem is that now sequence input doesn't work as intended
+ It  doesn't redirect to dedicated page, it rather askes for file input as if it still FASTA or Excel input. So JS code
+doesn't change the button functionality in accordance with data input option. FIX THAT.
+
+4.2 If 4.1 fixed, then handle the file input tree building functionality. Make it work and call it a day.
+
+
+Plans for 21-12-2024
+
+5. I need to pass excel file to backend. How do I do that?
+
+5.1. I need to check if the file .xls or .fasta. I will do in in Flask function submit_file(). I will check
+what  extention does the file have and create an if-elif statments. If .fasta, no change. Elif .xls I will reformat
+the file by triggering a new method that I will create withing calcularor class.
+
+5.2. I need to create a function that reconfigures the file in calculator_upgma file. This function will reqonfigure
+the file and save it as self.align_file atribute. Then this atribute is used inside dissimilaryty_matrix()
+function to perform futher calculations.
+
+Plans for 23-12-2024
+
+6. Basic functionality is complete. Things that are still needed to adress: 
+--Make it calcualte things in a sepatrate thread! NOT SURE
+--Consider adding user authentification. DISCARDED
+--Make the thing responcive.
+--Consider making the pic text of a different colour. DONE 
+--Consider adding more things to show_result.html page. DISCARDED
+
+6.1 Perform general overview and plan some future changes.
+
+
+Plans for 26-12-2024
+
+7. Fix that f* buggggg. Revert to 6. Make some changes, if you have time.
+DONE
+
+Plans for 27-12-2024
+
+8. The website looks horable. Reconsider frontend.
+
+8.1 Change some elements's colors, introduce one more color. 
+8.2 Change arrows in carusel. Make carusel move automaticaly.
+
+
+9. Redeployment.
+9.1 Make new Docker image. Change mode from developer to profduction.
+
