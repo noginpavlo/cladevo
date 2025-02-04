@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE HTML>
 <!-- Frontend template info
 	Editorial by HTML5 UP
@@ -9,7 +10,7 @@
 		<title>Cladevo by HIGHLANDER-95</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+		<link rel="stylesheet" href="{% static 'css/cladevo.css' %}" />
 	</head>
 
 	<body class="is-preload">
@@ -42,18 +43,18 @@
 											</header>
 											<p>Cladevo is a web-based tool for creating dendrograms using UPGMA and Neighbor-Joining hierarchical clustering methods. It features a user-friendly interface, supports FASTA files, and allows manual sequence input—making it an accessible and efficient solution for research and learning without the need for complex software.</p>
 											<ul class="actions">
-												<li><a href="{{ url_for('calculation_parameters') }}" class="button primary">Get Started</a></li>
-												<li><a href="{{ url_for('documentation') }}" class="button big">How to use</a></li>
+												<li><a href="" class="button primary">Get Started</a></li>
+												<li><a href="" class="button big">How to use</a></li>
 											</ul>
 										</div>
 										<div class="col-7 col-12-small">
 											<div class="carousel-container">
 												<div class="carousel">
-													<div class="carousel-item"><img src="{{ url_for('static', filename='images/tree4.png') }}" alt="Image 1" /></div>
-													<div class="carousel-item"><img src="{{ url_for('static', filename='images/tree6.png') }}" alt="Image 2" /></div>
-													<div class="carousel-item"><img src="{{ url_for('static', filename='images/upgma1.png') }}" alt="Image 3" /></div>
-													<div class="carousel-item"><img src="{{ url_for('static', filename='images/upgma2.png') }}" alt="Image 4" /></div>
-													<div class="carousel-item"><img src="{{ url_for('static', filename='images/nj1.png') }}" alt="Image 5" /></div>
+													<div class="carousel-item"><img src="{% static 'images/tree4.png' %}" alt="Image 1" /></div>
+													<div class="carousel-item"><img src="{% static 'images/tree6.png' %}" alt="Image 2" /></div>
+													<div class="carousel-item"><img src="{% static 'images/upgma1.png' %}" alt="Image 3" /></div>
+													<div class="carousel-item"><img src="{% static 'images/upgma2.png' %}" alt="Image 4" /></div>
+													<div class="carousel-item"><img src="{% static 'images/nj1.png' %}" alt="Image 5" /></div>
 												</div>
 												<div class="carousel-controls">
 													<span class="prev">&#10094;</span>
@@ -74,7 +75,7 @@
 											<span class="icon solid fa-chart-pie"></span>
 											<div class="content">
 												<h3>Flexible data input</h3>
-												<p>You can build a dendrogram using FASTA files containing two or more sequences. Alternatively, you may input sequences manually or use Excel files for data input. For guidance on formatting your data in Excel, please refer to the provided instructions <a class="blue-ref" href="{{ url_for('documentation') }}">here.</a></p>
+												<p>You can build a dendrogram using FASTA files containing two or more sequences. Alternatively, you may input sequences manually or use Excel files for data input. For guidance on formatting your data in Excel, please refer to the provided instructions <a class="blue-ref" href="">here.</a></p>
 											</div>
 										</article>
 										<article>
@@ -96,7 +97,7 @@
 											<span class="icon solid fa-user-graduate"></span>
 											<div class="content">
 												<h3>Contains educational materials</h3>
-												<p>Cladevo provides all the educational resources necessary to use the application effectively and more. Comprehensive video tutorials are available in the <a class="blue-ref" href="{{ url_for('documentation') }}">How to Use</a> section. Additionally, the <a class="blue-ref" href="{{ url_for('theory_section') }}#clustering"> Theory</a> section offers an overview of the foundational concepts behind the UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-Joining algorithms.</p>
+												<p>Cladevo provides all the educational resources necessary to use the application effectively and more. Comprehensive video tutorials are available in the <a class="blue-ref" href="">How to Use</a> section. Additionally, the <a class="blue-ref" href=""> Theory</a> section offers an overview of the foundational concepts behind the UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-Joining algorithms.</p>
 											</div>
 										</article>
 									</div>
@@ -114,16 +115,16 @@
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="{{ url_for('home') }}">Homepage</a></li>
-										<li><a href="{{ url_for('calculation_parameters') }}">Build your tree</a></li>
-										<li><a href="{{ url_for('documentation') }}">How to use</a></li>
+										<li><a href="">Homepage</a></li>
+										<li><a href="">Build your tree</a></li>
+										<li><a href="">How to use</a></li>
 										<li>
 											<span class="opener">Theory</span>
 											<ul>
-												<li><a href="{{ url_for('theory_section') }}#clustering">Hierarchical clustering methods</a></li>
-												<li><a href="{{ url_for('theory_section') }}#upgma">UPGMA</a></li>
-												<li><a href="{{ url_for('theory_section') }}#nj">Neighbor-Joining(NJ)</a></li>
-												<li><a href="{{ url_for('theory_section') }}#upgma-vs-nj">UPGMA or NJ</a></li>
+												<li><a href="">Hierarchical clustering methods</a></li>
+												<li><a href="">UPGMA</a></li>
+												<li><a href="">Neighbor-Joining(NJ)</a></li>
+												<li><a href="">UPGMA or NJ</a></li>
 											</ul>
 										</li>
 										<li><a href="#">About</a></li>
@@ -150,11 +151,11 @@
 					</div>
 			</div>
 		<!-- Scripts -->
-			<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-			<script src="{{ url_for('static', filename='js/browser.min.js') }}"></script>
-			<script src="{{ url_for('static', filename='js/breakpoints.min.js') }}"></script>
-			<script src="{{ url_for('static', filename='js/util.js') }}"></script>
-			<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+			<script src="{% static 'js/cladevo_jquery.min.js' %}"></script>
+			<script src="{% static 'js/cladevo_browser.min.js'%}"></script>
+			<script src="{% static 'js/cladevo_breakpoints.min.js'%}"></script>
+			<script src="{% static 'js/cladevo_util.js' %}"></script>
+			<script src="{% static 'js/cladevo_main.js' %}"></script>
 
 	<script>
 	document.addEventListener('DOMContentLoaded', () => {
