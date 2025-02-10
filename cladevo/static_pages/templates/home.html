@@ -24,7 +24,7 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="index2.html" class="logo"><strong>Cladevo</strong> by HIGHLANDER-95</a>
+									<a href="{% url 'home' %}" class="logo"><strong>Cladevo</strong> by HIGHLANDER-95</a>
 									<ul class="icons">
 										<li><a href="https://github.com/noginpavlo" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
 										<li><a href="https://t.me/highlender0302" class="icon brands fa-telegram" target="_blank"><span class="label">Instagram</span></a></li>
@@ -75,7 +75,7 @@
 											<span class="icon solid fa-chart-pie"></span>
 											<div class="content">
 												<h3>Flexible data input</h3>
-												<p>You can build a dendrogram using FASTA files containing two or more sequences. Alternatively, you may input sequences manually or use Excel files for data input. For guidance on formatting your data in Excel, please refer to the provided instructions <a class="blue-ref" href="">here.</a></p>
+												<p>You can build a dendrogram using FASTA files containing two or more sequences. Alternatively, you may input sequences manually or use Excel files for data input. For guidance on formatting your data in Excel, please refer to the provided instructions <a class="blue-ref" href="{% url 'docs' %}">here.</a></p>
 											</div>
 										</article>
 										<article>
@@ -90,14 +90,14 @@
 											<div class="content">
 												<h3>Cladevo is free</h3>
 												<p>Cladevo is completely free to use, offering full access to all features without requiring a subscription or user authentication. It is entirely ad-free, ensuring a distraction-free experience for users.
-													Whether you're a student exploring clustering methods or a researcher seeking quick data insights, Cladevo provides a efficient and accessible tool for sequence analysis.</p>
+													Whether you're a student exploring clustering methods or a researcher seeking quick data insights, Cladevo provides an efficient and accessible tool for sequence analysis.</p>
 											</div>
 										</article>
 										<article>
 											<span class="icon solid fa-user-graduate"></span>
 											<div class="content">
 												<h3>Contains educational materials</h3>
-												<p>Cladevo provides all the educational resources necessary to use the application effectively and more. Comprehensive video tutorials are available in the <a class="blue-ref" href="">How to Use</a> section. Additionally, the <a class="blue-ref" href=""> Theory</a> section offers an overview of the foundational concepts behind the UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-Joining algorithms.</p>
+												<p>Cladevo provides all the educational resources necessary to use the application effectively and more. Comprehensive video tutorials are available in the <a class="blue-ref" href="{% url 'docs' %}">How to Use</a> section. Additionally, the <a class="blue-ref" href="{% url 'theory' %}"> Theory</a> section offers an overview of the foundational concepts behind the UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-Joining algorithms.</p>
 											</div>
 										</article>
 									</div>
@@ -115,19 +115,19 @@
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="">Homepage</a></li>
+										<li><a href="{% url 'home' %}">Homepage</a></li>
 										<li><a href="">Build your tree</a></li>
-										<li><a href="">How to use</a></li>
+										<li><a href="{% url 'docs' %}">How to use</a></li>
 										<li>
 											<span class="opener">Theory</span>
 											<ul>
-												<li><a href="">Hierarchical clustering methods</a></li>
-												<li><a href="">UPGMA</a></li>
-												<li><a href="">Neighbor-Joining(NJ)</a></li>
-												<li><a href="">UPGMA or NJ</a></li>
+												<li><a href="{% url 'theory' %}">Hierarchical clustering methods</a></li>
+												<li><a href="{% url 'theory' %}">UPGMA</a></li>
+												<li><a href="{% url 'theory' %}">Neighbor-Joining(NJ)</a></li>
+												<li><a href="{% url 'theory' %}">UPGMA or NJ</a></li>
 											</ul>
 										</li>
-										<li><a href="#">About</a></li>
+										<li><a href="">About</a></li>
 									</ul>
 								</nav>
 							 <!-- Section -->
@@ -139,7 +139,7 @@
 									<ul class="contact">
 										<li class="icon solid fa-envelope"><a href="#">nohinpavlo@gmail.com</a></li>
 										<li class="icon solid fa-user">I'm Nohin Pavlo</li>
-										<li class="icon solid fa-home">Sweden, Uppsala</li>
+										<li class="icon solid fa-home">Sweden, Vilhelmina</li>
 										<li class="icon solid fa-phone">+46 76 715 28 73</li>
 									</ul>
 								</section>

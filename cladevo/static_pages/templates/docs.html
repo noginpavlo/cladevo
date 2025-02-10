@@ -29,7 +29,7 @@
 
 					<!-- Header -->
 					<header id="header">
-						<a href="index2.html" class="logo"><strong>Cladevo</strong> by HIGHLANDER-95</a>
+						<a href="{% url 'home' %}" class="logo"><strong>Cladevo</strong> by HIGHLANDER-95</a>
 						<ul class="icons">
                             <li><a href="https://github.com/noginpavlo" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
                             <li><a href="https://t.me/highlender0302" class="icon brands fa-telegram" target="_blank"><span class="label">Instagram</span></a></li>
@@ -86,16 +86,16 @@
                             <h2>Menu</h2>
                         </header>
                         <ul>
-                            <li><a href="">Homepage</a></li>
+                            <li><a href="{% url 'home' %}">Homepage</a></li>
                             <li><a href="">Build your tree</a></li>
-                            <li><a href="">How to use</a></li>
+                            <li><a href="{% url 'docs' %}">How to use</a></li>
                             <li>
                                 <span class="opener">Theory</span>
                                 <ul>
-                                    <li><a href="">Hierarchical clustering methods</a></li>
-                                    <li><a href="">UPGMA</a></li>
-                                    <li><a href="">Neighbor-Joining(NJ)</a></li>
-                                    <li><a href="">UPGMA or NJ</a></li>
+                                    <li><a href="{% url 'theory' %}">Hierarchical clustering methods</a></li>
+                                    <li><a href="{% url 'theory' %}">UPGMA</a></li>
+                                    <li><a href="{% url 'theory' %}">Neighbor-Joining(NJ)</a></li>
+                                    <li><a href="{% url 'theory' %}">UPGMA or NJ</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">About</a></li>

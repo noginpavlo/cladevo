@@ -6,3 +6,6 @@ def home(request):
 
 def docs(request):
     return render(request, "docs.html")
+
+def theory(request):
+    return render(request, "theory.html")
