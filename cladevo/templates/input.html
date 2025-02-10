@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
+{% load static %}
 <!-- Frontend template info -->
 <html>
 	<head>
 		<title>Cladevo by HIGHLANDER-95</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}" />
+		<link rel="stylesheet" href="{% static 'css/cladevo.css' %}" />
 	</head>
 
 	<body class="is-preload">
@@ -124,11 +125,11 @@
 		</div>
 
 		<!-- Scripts -->
-		<script src="{{ url_for('static', filename='/js/jquery.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='/js/browser.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='/js/breakpoints.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='/js/util.js') }}"></script>
-		<script src="{{ url_for('static', filename='/js/main.js') }}"></script>
+		<script src="{% static 'js/cladevo_jquery.min.js' %}"></script>
+			<script src="{% static 'js/cladevo_browser.min.js'%}"></script>
+			<script src="{% static 'js/cladevo_breakpoints.min.js'%}"></script>
+			<script src="{% static 'js/cladevo_util.js' %}"></script>
+			<script src="{% static 'js/cladevo_main.js' %}"></script>
 
 		<script>
 			$(document).ready(function() {
