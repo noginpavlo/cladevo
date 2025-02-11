@@ -224,7 +224,7 @@
       // Change the submit button text and href based on input type selection
       if (selectedValue === '3') {
         submitButton.textContent = 'Input sequences';
-        submitButton.href = ""; // Redirect to manual input route
+        submitButton.href = "{% url 'sequence_input'%}"; // Redirect to manual input route
       } else {
         submitButton.textContent = 'Calculate';
         submitButton.href = "#"; // Ensure file upload functionality remains intact
