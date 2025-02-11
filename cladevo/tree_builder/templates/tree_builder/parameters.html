@@ -103,7 +103,7 @@
                   <div class="col-12">
                     <ul class="actions">
                       <li>
-                        <a id="submit-button" href="#" class="button primary">Calculate</a>
+                        <a id="submit-button" href="" class="button primary">Calculate</a>
                       </li>
                       <li><input type="reset" value="Reset"></li>
                     </ul>
@@ -125,19 +125,19 @@
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="{{ url_for('home') }}">Homepage</a></li>
-										<li><a href="{{ url_for('calculation_parameters') }}">Build your tree</a></li>
-										<li><a href="{{ url_for('documentation') }}">How to use</a></li>
+										<li><a href="">Homepage</a></li>
+										<li><a href="">Build your tree</a></li>
+										<li><a href="">How to use</a></li>
 										<li>
 											<span class="opener">Theory</span>
 											<ul>
-												<li><a href="{{ url_for('theory_section') }}#clustering">Hierarchical clustering methods</a></li>
-                                                <li><a href="{{ url_for('theory_section') }}#upgma">UPGMA</a></li>
-                                                <li><a href="{{ url_for('theory_section') }}#nj">Neighbor-Joining(NJ)</a></li>
-                                                <li><a href="{{ url_for('theory_section') }}#upgma-vs-nj">UPGMA or NJ</a></li>
+												<li><a href="">Hierarchical clustering methods</a></li>
+                                                <li><a href="">UPGMA</a></li>
+                                                <li><a href="">Neighbor-Joining(NJ)</a></li>
+                                                <li><a href="">UPGMA or NJ</a></li>
 											</ul>
 										</li>
-										<li><a href="#">About</a></li>
+										<li><a href="">About</a></li>
 									</ul>
 								</nav>
 							 <!-- Section -->
@@ -224,7 +224,7 @@
       // Change the submit button text and href based on input type selection
       if (selectedValue === '3') {
         submitButton.textContent = 'Input sequences';
-        submitButton.href = "{{ url_for('input_seq') }}"; // Redirect to manual input route
+        submitButton.href = ""; // Redirect to manual input route
       } else {
         submitButton.textContent = 'Calculate';
         submitButton.href = "#"; // Ensure file upload functionality remains intact
