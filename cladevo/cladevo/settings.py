@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'static_pages',
+    'tree_builder',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
