@@ -222,30 +222,48 @@
 						}
 					});
 
-					// Send data to Flask backend
+					//Sebd data to backend
 					$.ajax({
-						url: '/submit_sequences',
-						type: 'POST',
-						data: {
-							'sequence_name[]': names,
-							'sequence_data[]': messages
-						},
-						success: function(response) {
-							if (response.redirect_url) {
-								// Redirect the browser to the new page
-								window.location.href = response.redirect_url;
-							} else {
-								alert('Error: No redirect URL provided by the server.');
+					url: '/tree_builder/submit_sequences/',  // Ensure this matches Django's URL pattern
+					type: 'POST',
+					contentType: 'application/json',  // Send data as JSON
+					data: JSON.stringify({
+						'sequence_name': names,  // Send as an array
+						'sequence_data': messages  // Send as an array
+					}),
+					headers: {
+						'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
+					},
+					success: function(response) {
+						if (response.redirect_url) {
+							window.location.href = response.redirect_url;
+						} else {
+							alert('Data submitted successfully!');
+						}
+					},
+					error: function(error) {
+						alert('Error occurred while submitting sequences.');
+					}
+				});
+
+				// Function to get CSRF token from cookies (Django requires it for security)
+				function getCookie(name) {
+					let cookieValue = null;
+					if (document.cookie && document.cookie !== '') {
+						let cookies = document.cookie.split(';');
+						for (let i = 0; i < cookies.length; i++) {
+							let cookie = cookies[i].trim();
+							if (cookie.startsWith(name + '=')) {
+								cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+								break;
 							}
-						},
-						error: function(error) {
-							alert('Error occurred while submitting sequences.');
-									}
-					});
+						}
+					}
+					return cookieValue;
+				}
 				});
 			});
 		</script>
-
 	</body>
 </html>
 
