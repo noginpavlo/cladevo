@@ -60,12 +60,14 @@ class TreeBuilder:
         # Read the alignment from the generated .aln file
         try:
             alignment = AlignIO.read(output_aln, "clustal")
+            print("Alignment executed")
 
         except FileNotFoundError:
             print(f"Alignment file not found: {output_aln}")
             return
 
         self.aligned_file = alignment
+        print(self.aligned_file)
 
         os.remove(temp_fasta_name)
         os.remove(output_aln)

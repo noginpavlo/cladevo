@@ -2,8 +2,9 @@ from django.shortcuts import render
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt  # Temporary (Not recommended for production)
-#import calculator_upgma here
+from tree_builder.services.calculator_upgma import TreeBuilder
 
+calculator = TreeBuilder()
 
 method = "nj"
 
@@ -24,7 +25,10 @@ def submit_sequences(request):
             sequence_data = data.get("sequence_data", [])  # Get array of sequences
 
             print("Received Sequences:", sequence_names, sequence_data)
-            # (Optional) Save to database or process the data
+
+            calculator.align_sequences(sequence_names, sequence_data)
+            calculator.calculate_dissimilarity_matrix()
+            calculator.build_tree(method)
 
             return JsonResponse({"message": "Data received successfully!", "redirect_url": "/success/"})
 
