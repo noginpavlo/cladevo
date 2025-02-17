@@ -30,10 +30,25 @@ def submit_sequences(request):
             calculator.calculate_dissimilarity_matrix()
             calculator.build_tree(method)
 
-            return JsonResponse({"message": "Data received successfully!", "redirect_url": "/success/"})
+            unique_id = calculator.visualize_tree()
+
+            if unique_id is None:
+                return JsonResponse({'error': 'Tree visualization failed'}), 400
+
+            redirect_url = "/show_result/"
+
+            return JsonResponse({"message": "Data received successfully!", "redirect_url": redirect_url})
 
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
 
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
+
+def show_result(request, unique_id):
+    print(f"Received unique_id: {unique_id}")
+    if not unique_id:
+        print("Error: No unique ID provided")
+        return "Error: No unique ID provided", 400
+
+    return render(request, "tree_builder/result.html")

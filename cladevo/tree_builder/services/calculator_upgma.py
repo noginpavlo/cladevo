@@ -183,6 +183,7 @@ class TreeBuilder:
         if output_file is None:
             # Generate a unique ID and use it to create a unique file name
             unique_id = str(uuid.uuid4())
+            print(unique_id)
             output_file = os.path.join(save_directory, f"tree_{unique_id}.{output_format}")
 
         # Remove internal node labels (set name to None)
