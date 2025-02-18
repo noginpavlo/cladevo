@@ -35,7 +35,7 @@ def submit_sequences(request):
             if unique_id is None:
                 return JsonResponse({'error': 'Tree visualization failed'}), 400
 
-            redirect_url = "/show_result/"
+            redirect_url = f"/tree_builder/result/{unique_id}/"
 
             return JsonResponse({"message": "Data received successfully!", "redirect_url": redirect_url})
 
@@ -51,4 +51,4 @@ def show_result(request, unique_id):
         print("Error: No unique ID provided")
         return "Error: No unique ID provided", 400
 
-    return render(request, "tree_builder/result.html")
+    return render(request, "tree_builder/result.html", {"unique_id": unique_id})

@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 {% load static %}
-<!-- Frontend template info
-     Editorial by HTML5 UP
-     html5up.net | @ajlkn
-     Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -34,11 +29,11 @@
                                 <h1 id="result-tree-heading">Result Tree</h1>
                             </header>
                             <span class="image main" id="result-tree-image">
-                                <img src="{{ url_for('static', filename='plots/tree_' + unique_id + '.png') }}" alt="Phylogenetic Tree">
+                                <img src="{% static 'plots/tree_' %}{{ unique_id }}.png" alt="Phylogenetic Tree">
                             </span>
                             <!-- Download Button -->
-                            <a href="{{ url_for('static', filename='plots/tree_' + unique_id + '.png') }}" class="button primary icon solid fa-download" download="tree.png">Download</a>
-                            <a href="{{ url_for('home') }}" class="button">Home</a>
+                            <a href="{% static 'plots/tree_' %}{{ unique_id }}.png" class="button primary icon solid fa-download" download="tree.png">Download</a>
+                            <a href="{% url 'home' %}" class="button">Home</a>
                             <hr class="major" />
                         </div>
                     </section>
