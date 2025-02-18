@@ -16,6 +16,30 @@ def parameters(request):
 def sequence_input(request):
     return render(request, "tree_builder/input.html")
 
+def show_result(request, unique_id):
+    print(f"Received unique_id: {unique_id}")
+    if not unique_id:
+        print("Error: No unique ID provided")
+        return "Error: No unique ID provided", 400
+
+    return render(request, "tree_builder/result.html", {"unique_id": unique_id})
+
+
+@csrf_exempt  # Only for testing; remove it when you are using CSRF tokens
+def get_method(request):
+    global method
+
+    if request.method == 'POST':
+        method = request.POST.get('method')  # Get the 'method' value from the form data
+        if method:
+            print(f"Now method used is {method}")
+            return JsonResponse({"message": "Method updated successfully"}, status=200)
+        else:
+            return JsonResponse({"error": "No method selected"}, status=400)
+
+    return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
 @csrf_exempt  # Only for testing; remove it when using CSRF tokens in AJAX
 def submit_sequences(request):
     if request.method == "POST":
@@ -87,12 +111,3 @@ def submit_file(request):
         return JsonResponse({"redirect_url": redirect_url})
 
     return JsonResponse({"error": "Invalid request"}, status=400)
-
-
-def show_result(request, unique_id):
-    print(f"Received unique_id: {unique_id}")
-    if not unique_id:
-        print("Error: No unique ID provided")
-        return "Error: No unique ID provided", 400
-
-    return render(request, "tree_builder/result.html", {"unique_id": unique_id})

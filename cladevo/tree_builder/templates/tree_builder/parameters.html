@@ -273,7 +273,7 @@
 
       // Send the method to the backend
       $.ajax({
-        url: '/get-method', // New route to update the global method variable
+        url: '/tree_builder/get-method/', // New route to update the global method variable
         type: 'POST',
         data: { method: method }, // Send the selected method ('upgma' or 'nj')
         success: function(response) {
