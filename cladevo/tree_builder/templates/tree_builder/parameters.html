@@ -227,7 +227,7 @@
         submitButton.href = "{% url 'sequence_input'%}"; // Redirect to manual input route
       } else {
         submitButton.textContent = 'Calculate';
-        submitButton.href = "#"; // Ensure file upload functionality remains intact
+        submitButton.href = "{% url 'submit_file'%}"; // Ensure file upload functionality remains intact
       }
     });
 
@@ -251,7 +251,7 @@
 
         // Use jQuery's AJAX to send the file data
         $.ajax({
-          url: '/submit_file',
+          url: '/tree_builder/submit_file/',
           type: 'POST',
           data: formData,
           processData: false,
