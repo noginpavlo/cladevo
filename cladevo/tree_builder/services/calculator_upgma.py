@@ -203,6 +203,8 @@ class TreeBuilder:
                 text.set_fontsize(14)
                 text.set_weight('bold')
 
+        ax.set_facecolor("whitesmoke")
+
         # Save the tree image
         plt.savefig(output_file, format=output_format, dpi=300)  # High resolution
         # print(f"Tree saved to {output_file} in {output_format} format.")
