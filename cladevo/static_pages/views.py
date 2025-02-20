@@ -9,3 +9,6 @@ def docs(request):
 
 def theory(request):
     return render(request, "theory.html")
+
+def about(request):
+    return render(request, "about.html")

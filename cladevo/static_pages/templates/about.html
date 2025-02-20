@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html>
+	<head>
+		<title>Cladevo by HIGHLANDER-95</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'css/cladevo.css' %}" />
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+
+					<!-- Header -->
+					<header id="header">
+						<a href="{% url 'home' %}" class="logo"><strong>Cladevo</strong> by HIGHLANDER-95</a>
+						<ul class="icons">
+                            <li><a href="https://github.com/noginpavlo" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+                            <li><a href="https://t.me/highlender0302" class="icon brands fa-telegram" target="_blank"><span class="label">Instagram</span></a></li>
+                            <li><a href="https://www.instagram.com/2seconds5pictures/" class="icon brands fa-instagram" target="_blank"><span class="label">Medium</span></a></li>
+						</ul>
+					</header>
+
+                    <!-- Text section -->
+                    <div class="theory-text-div">
+                        <h2 id="clustering" class="theory-h2-text">What is Cladevo and who is it for?</h2>
+                        <p class="theory-text">Cladevo is an online tool designed for constructing phylogenetic trees using the UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-Joining (NJ) algorithms. This platform enables users to generate dendrograms based on flexible data input methods. Users can upload FASTA or Excel files or manually input DNA sequences to obtain phylogenetic trees within seconds.</p>
+                        <p class="theory-text">This tool is intended for researchers, educators, and students who require an accessible solution for phylogenetic analysis. Scientists may utilize Cladevo for a preliminary examination of data before committing to more advanced bioinformatics software, such as MEGA or DarWin. Additionally, students can use Cladevo to explore dataset modifications, enhancing their understanding of UPGMA and NJ algorithms through interactive experimentation.</p>
+                        <hr/>
+
+                        <h2 id="upgma" class="theory-h2-text">What is the purpose of Cladevo?</h2>
+                        <p class="theory-text">UPGMA is a classical agglomerative hierarchical clustering method. It is characterized by its simplicity and computational efficiency. In UPGMA, at each step, the two closest clusters are merged, and the distance between the resulting cluster and any other cluster is computed as the average of all pairwise distances between the original clusters. The primary assumption of UPGMA is that all taxa evolve at a constant rate, which is known as the molecular clock hypothesis. This assumption leads to the "unweighted" aspect of the method, as no extra weight is given to any particular pairwise distance between clusters.</p>
+                        <p class="theory-text">While UPGMA has the advantage of being computationally efficient, it has limitations. The assumption of a molecular clock, which implies that all taxa evolve at the same rate, may not hold in many biological datasets. If evolutionary rates vary across taxa, UPGMA can produce misleading results, particularly in the context of phylogenetic tree reconstruction. Despite these shortcomings, UPGMA remains popular due to its simplicity and speed, especially for smaller datasets where the assumption of constant evolutionary rates might be reasonable [1][2].</p>
+                        <hr/>
+
+                        <h2 id="nj" class="theory-h2-text">Neighbor-Joining (NJ)</h2>
+                        <p class="theory-text">Neighbor-Joining (NJ) is an alternative agglomerative clustering method that is particularly useful in phylogenetic analysis. Unlike UPGMA, NJ does not assume that all taxa evolve at a constant rate, making it more flexible in accommodating datasets where evolutionary rates vary across taxa. The NJ algorithm works by iteratively selecting pairs of taxa (or clusters) that minimize the total branch length, which is a measure of the overall dissimilarity between taxa. The distance between the clusters is adjusted as new clusters are formed, and the tree is built by joining these pairs in a manner that minimizes the total dissimilarity.</p>
+                        <p class="theory-text">One of the key strengths of NJ is its ability to correct for the biases introduced by varying evolutionary rates, which can be a significant issue when using UPGMA. As a result, NJ is often preferred over UPGMA in phylogenetic studies where taxa have evolved at different rates. While NJ is more computationally intensive than UPGMA, it tends to produce more accurate trees, particularly in the presence of complex evolutionary processes [3][4].</p>
+                        <hr/>
+                    </div>
+
+                    <!-- Footer -->
+                    <footer id="footer">
+                        <p class="copyright">&copy; Cladevo. All rights reserved. Design by <a href="https://html5up.net">HTML5 UP</a>.</p>
+                    </footer>
+                    <!-- Sidebar -->
+                    <div id="sidebar">
+                        <div class="inner">
+
+                            <!-- Menu -->
+                            <nav id="menu">
+                                <header class="major">
+                                    <h2>Menu</h2>
+                                </header>
+                                <ul>
+                                    <li><a href="{% url 'home' %}">Homepage</a></li>
+                                    <li><a href="{% url 'parameters' %}">Build your tree</a></li>
+                                    <li><a href="{% url 'docs' %}">How to use</a></li>
+                                    <li>
+                                        <span class="opener">Theory</span>
+                                        <ul>
+                                            <li><a href="{% url 'theory' %}#clustering">Hierarchical clustering methods</a></li>
+                                            <li><a href="{% url 'theory' %}#upgma">UPGMA</a></li>
+                                            <li><a href="{% url 'theory' %}#nj">Neighbor-Joining(NJ)</a></li>
+                                            <li><a href="{% url 'theory' %}#upgma-vs-nj">UPGMA or NJ</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="">About</a></li>
+                                </ul>
+                            </nav>
+
+                            <!-- Section -->
+                            <section>
+                                <header class="major">
+                                    <h2>Get in touch</h2>
+                                </header>
+                                <p>If you encounter any issues while using the web app, feel free to reach out to me via email to report the problem. I’m also open to collaboration opportunities in Sweden. Let's get in touch!</p>
+                                <ul class="contact">
+                                    <li class="icon solid fa-envelope"><a href="#">nohinpavlo@gmail.com</a></li>
+                                    <li class="icon solid fa-user">I'm Nohin Pavlo</li>
+                                    <li class="icon solid fa-home">Sweden, Uppsala</li>
+                                    <li class="icon solid fa-phone">+46 76 715 28 73</li>
+                                </ul>
+                            </section>
+
+                            <!-- Footer -->
+                            <footer id="footer2">
+                                <p class="copyright">&copy; Cladevo. All rights reserved.<br> Design by <a href="https://html5up.net">HTML5 UP</a>.</p>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="{% static 'js/cladevo_jquery.min.js' %}"></script>
+        <script src="{% static 'js/cladevo_browser.min.js'%}"></script>
+        <script src="{% static 'js/cladevo_breakpoints.min.js'%}"></script>
+        <script src="{% static 'js/cladevo_util.js' %}"></script>
+        <script src="{% static 'js/cladevo_main.js' %}"></script>
+
+    </body>
+</html>
