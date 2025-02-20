@@ -5,6 +5,7 @@
 	<head>
 		<title>Cladevo by HIGHLANDER-95</title>
 		<meta charset="utf-8" />
+		<meta name="csrf-token" content="{{ csrf_token }}">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{% static 'css/cladevo.css' %}" />
 	</head>
@@ -204,7 +205,7 @@
 				// Initial validation on page load
 				checkFormValidation();
 
-				// Send data to Flask backend on 'Build Tree' button click
+				// Send data to backend on 'Build Tree' button click
 				$('#card_button').click(function(e) {
 					e.preventDefault(); // Prevent default action
 
@@ -222,7 +223,7 @@
 						}
 					});
 
-					//Sebd data to backend
+					//Send data to backend
 					$.ajax({
 					url: '/tree_builder/submit_sequences/',  // Ensure this matches Django's URL pattern
 					type: 'POST',
@@ -232,7 +233,7 @@
 						'sequence_data': messages  // Send as an array
 					}),
 					headers: {
-						'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
+						'X-CSRFToken': getCookie('csrftoken')
 					},
 					success: function(response) {
 						if (response.redirect_url) {

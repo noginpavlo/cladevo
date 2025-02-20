@@ -10,5 +10,3 @@ urlpatterns = [
     path("submit_file/", submit_file, name="submit_file"),
     path("get-method/", get_method, name="get-method"),
 ]
-
-#Okeeeeeey let's go!

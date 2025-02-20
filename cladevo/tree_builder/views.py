@@ -3,18 +3,22 @@ import json
 import os
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt  # Temporary (Not recommended for production)
+from django.views.decorators.csrf import csrf_protect
+from django.middleware.csrf import get_token
 from tree_builder.services.calculator_upgma import TreeBuilder
 
-calculator = TreeBuilder()
 
+calculator = TreeBuilder()
 method = "nj"
 
-# Create your views here.
+
 def parameters(request):
     return render(request, "tree_builder/parameters.html")
 
+
 def sequence_input(request):
     return render(request, "tree_builder/input.html")
+
 
 def show_result(request, unique_id):
     print(f"Received unique_id: {unique_id}")
@@ -25,12 +29,17 @@ def show_result(request, unique_id):
     return render(request, "tree_builder/result.html", {"unique_id": unique_id})
 
 
-@csrf_exempt  # Only for testing; remove it when you are using CSRF tokens
+def get_csrf_token(request):
+    """ Return the CSRF token as JSON for AJAX requests. """
+    return JsonResponse({'csrfToken': get_token(request)})
+
+
+@csrf_protect  # Enables CSRF protection
 def get_method(request):
     global method
 
     if request.method == 'POST':
-        method = request.POST.get('method')  # Get the 'method' value from the form data
+        method = request.POST.get('method')  # Get method from POST data
         if method:
             print(f"Now method used is {method}")
             return JsonResponse({"message": "Method updated successfully"}, status=200)
@@ -40,7 +49,7 @@ def get_method(request):
     return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
-@csrf_exempt  # Only for testing; remove it when using CSRF tokens in AJAX
+@csrf_protect
 def submit_sequences(request):
     if request.method == "POST":
         try:
@@ -58,7 +67,7 @@ def submit_sequences(request):
             unique_id = calculator.visualize_tree()
 
             if unique_id is None:
-                return JsonResponse({'error': 'Tree visualization failed'}), 400
+                return JsonResponse({'error': 'Tree visualization failed'}, status=400)
 
             redirect_url = f"/tree_builder/result/{unique_id}/"
 
@@ -71,7 +80,7 @@ def submit_sequences(request):
         return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
-@csrf_exempt  # Remove this when CSRF protection is added in frontend
+@csrf_protect
 def submit_file(request):
     if request.method == "POST" and request.FILES.get("file-upload"):
         file = request.FILES["file-upload"]
