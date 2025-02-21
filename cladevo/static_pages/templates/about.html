@@ -6,6 +6,29 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{% static 'css/cladevo.css' %}" />
+
+        <style>
+            details {
+                cursor: pointer;
+                margin-top: 20px;
+            }
+
+            summary {
+                list-style: none;
+            }
+
+            summary::marker {
+                display: none;
+            }
+
+            summary h2 {
+                display: inline;
+            }
+
+            details[open] summary h2 {
+                color: #2c3e50; /* Adjust color to fit the Editorial template */
+            }
+        </style>
 	</head>
 
 	<body class="is-preload">
@@ -35,13 +58,61 @@
                         <hr/>
 
                         <h2 id="upgma" class="theory-h2-text">What is the purpose of Cladevo?</h2>
-                        <p class="theory-text">UPGMA is a classical agglomerative hierarchical clustering method. It is characterized by its simplicity and computational efficiency. In UPGMA, at each step, the two closest clusters are merged, and the distance between the resulting cluster and any other cluster is computed as the average of all pairwise distances between the original clusters. The primary assumption of UPGMA is that all taxa evolve at a constant rate, which is known as the molecular clock hypothesis. This assumption leads to the "unweighted" aspect of the method, as no extra weight is given to any particular pairwise distance between clusters.</p>
-                        <p class="theory-text">While UPGMA has the advantage of being computationally efficient, it has limitations. The assumption of a molecular clock, which implies that all taxa evolve at the same rate, may not hold in many biological datasets. If evolutionary rates vary across taxa, UPGMA can produce misleading results, particularly in the context of phylogenetic tree reconstruction. Despite these shortcomings, UPGMA remains popular due to its simplicity and speed, especially for smaller datasets where the assumption of constant evolutionary rates might be reasonable [1][2].</p>
+                        <p class="theory-text">The primary objective of Cladevo is to facilitate the rapid construction of phylogenetic trees. The application's functionality is intentionally limited to fundamental features, ensuring a user-friendly experience. Data input is formatted for compatibility with widely used tools such as Excel and text editors, while all subsequent data processing is fully automated.</p>
+                        <p class="theory-text">Cladevo is specifically designed as an alternative to professional, multifunctional bioinformatics software such as DarWin and MEGA, which, while powerful, can be complex and require significant time to learn. The goal of Cladevo is to enable users to generate their first phylogenetic tree within 10 minutes, requiring no prior experience. As a web-based tool, it eliminates the need for installation or extensive training, providing an intuitive entry point for users to explore phylogenetic analysis before transitioning to more advanced software.</p>
+
+                        <details>
+                            <summary><h3 id="story" class="blue-ref">Let me tell you the story behind Cladevo's creation...</h3></summary>
+                            <p  class="theory-text">I was an undergraduate student when Russia invaded my country. Like millions of others, I had to leave Ukraine, searching for shelter and peace across Europe. Many Ukrainians were constantly on the move, relocating twice, even three times a year—and I was one of them. A lot changed in my life, but I was determined to keep working on my diploma project, which I was doing at ICBGI (Institute of Cell Biology and Genetic Engineering).</p>
+                            <p  class="theory-text">By the time I graduated, the study my project was part of was still unfinished. My colleagues at ICBGI and I had gathered a ton of valuable data on spelt in the lab, but it all needed bioinformatics analysis—specifically, phylogenetic trees. And for me, that meant doing everything while moving from place to place with very limited resources.</p>
+                            <p  class="theory-text">At the time, all I had was an old MacBook. Later, I managed to buy a second-hand desktop PC, but I had to sell it pretty soon because—surprise, surprise—I had to move again. Every time I switched devices, I had to reinstall everything from scratch. Running DarWin on Wine emulator was a nightmare, and even when I finally got it to work, moving files in and out of Wine, processing them, and copying them back to my system was just painfully inconvenient.</p>
+                            <p  class="theory-text">And that’s when I had a thought:<br>What if I didn’t need to go through all this?<br>What if all I needed was a web browser?<br>What if I didn’t have to struggle with DarWin’s complex interface and endless file management?<br>(Anyone who has used this software will get what I mean right away.)<br>What if there was a simpler, faster tool that automated all of this?</p>
+                            <p  class="theory-text">That idea stuck with me, and I decided to build it myself. There are already a few options online, but none that supported SSR marker data analysis, which I specifically needed. So, I made one—and honestly, it was fun!</p>
+                            <p  class="theory-text">Now, I just hope that Cladevo helps others too. I hope it saves people from the endless cycle of installations, Wine tricks, and sorting through way too many files and folders. If you find it useful, great! And if you run into any issues, feel free to reach out—my contact info is in the Contacts section.</p>
+                            <p  class="theory-text">Just a heads-up: I’m managing Cladevo completely on my own, with zero funding, so I can’t guarantee I’ll be able to reply to every email. But if you really need a response, just mark your email in the subject line, and I’ll do my best. Even if I can’t reply, I truly appreciate all feedback and suggestions!</p>
+                        </details>
                         <hr/>
 
-                        <h2 id="nj" class="theory-h2-text">Neighbor-Joining (NJ)</h2>
-                        <p class="theory-text">Neighbor-Joining (NJ) is an alternative agglomerative clustering method that is particularly useful in phylogenetic analysis. Unlike UPGMA, NJ does not assume that all taxa evolve at a constant rate, making it more flexible in accommodating datasets where evolutionary rates vary across taxa. The NJ algorithm works by iteratively selecting pairs of taxa (or clusters) that minimize the total branch length, which is a measure of the overall dissimilarity between taxa. The distance between the clusters is adjusted as new clusters are formed, and the tree is built by joining these pairs in a manner that minimizes the total dissimilarity.</p>
-                        <p class="theory-text">One of the key strengths of NJ is its ability to correct for the biases introduced by varying evolutionary rates, which can be a significant issue when using UPGMA. As a result, NJ is often preferred over UPGMA in phylogenetic studies where taxa have evolved at different rates. While NJ is more computationally intensive than UPGMA, it tends to produce more accurate trees, particularly in the presence of complex evolutionary processes [3][4].</p>
+                        <h2 id="nj" class="theory-h2-text">Features & Functionality</h2>
+                        <p class="theory-text">Cladevo is a powerful yet user-friendly tool for building phylogenetic trees with minimal effort. Its simple interface and straightforward functionality make it ideal for both beginners and experienced researchers. Here are some key features:</p>
+                        <ol>
+                            <li>
+                                <h3>Phylogenetic Algorithms</h3>
+                                    <ul>
+                                        <li><p class="theory-text" style="text-indent: 0em;">Users can construct phylogenetic trees using the Neighbor-Joining (NJ) and UPGMA (Unweighted Pair Group Method with Arithmetic Mean) algorithms. These widely used methods provide a robust way to analyze genetic relationships and visualize evolutionary histories.</p></li>
+                                    </ul>
+                            </li>
+                            <li>
+                               <h3>Molecular Markers & PCR Gel Electrophoresis</h3>
+                                    <ul>
+                                        <li><p class="theory-text" style="text-indent: 0em;">Cladevo supports the analysis of molecular markers, often used in combination with PCR (Polymerase Chain Reaction) and gel electrophoresis techniques. These methods are frequently employed in genetic research for identifying specific DNA sequences and comparing genetic diversity. Researchers working with data from gel electrophoresis experiments can easily integrate their results into Cladevo for phylogenetic analysis. The tool is also compatible with FASTA files and allows users to directly paste DNA sequences into the app, providing flexibility for various types of input.</p></li>
+                                    </ul>
+                            </li>
+                            <li>
+                                <h3>Speed & Accessibility</h3>
+                                <ul>
+                                    <li><p class="theory-text" style="text-indent: 0em;">Cladevo is designed for quick, efficient use—no installation or prior experience is required. With just a few clicks, users can upload their data and generate phylogenetic trees in seconds, making it an ideal tool for quick data exploration and preliminary analysis.</p></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <h3>Simplified Workflow</h3>
+                                <ul>
+                                    <li><p class="theory-text" style="text-indent: 0em;">The interface has been streamlined to ensure that users can easily create their first phylogenetic tree without navigating complex features. Whether you're a student or a professional, Cladevo's simplicity makes it accessible and intuitive for everyone.</p></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <h3>Educational Resources</h3>
+                                <ul>
+                                    <li><p class="theory-text" style="text-indent: 0em;">Cladevo includes basic educational materials to help users understand the underlying algorithms. Information about UPGMA and Neighbor-Joining is readily available, allowing users to better comprehend the analysis behind their phylogenetic trees.</p></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <h3>Completely Free</h3>
+                                <ul>
+                                    <li><p class="theory-text" style="text-indent: 0em;">Cladevo is entirely free to use. There are no hidden fees or subscription models—just a straightforward, accessible tool for anyone who needs it.</p></li>
+                                </ul>
+                            </li>
+                        </ol>
                         <hr/>
                     </div>
 
