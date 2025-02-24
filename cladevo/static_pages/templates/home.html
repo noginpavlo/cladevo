@@ -44,6 +44,33 @@
 			.carousel-controls .next {
 				right: 10px;
 			}
+			.main-footer {
+				background: linear-gradient(to right, #ffffff 0%, #f8f8f8 50%, #ffffff 100%) !important;
+				padding: 20px 0 !important;
+			}
+
+			.main-footer p {
+				font-size: 0.9rem;
+				font-weight: 300; /* Lighter weight for a softer look */
+			}
+			.main-footer {
+				margin-top: -27px; /* Creates a small gap between main content and footer */
+			}
+			.main-footer p {
+				font-size: 0.9rem !important;
+				font-weight: 300 !important; /* Lighter weight for a softer look */
+				text-align: center !important; /* Centers the text */
+			}
+			#fitures-div {
+				display: flex !important;
+				justify-content: center !important; /* Horizontally center the h2 */
+				align-items: center !important; /* Vertically center the h2 */
+				height: 100%; /* Ensure there's enough height for vertical centering */
+			}
+
+			#cladevo-fitures {
+				text-align: center !important; /* Center the text within h2 */
+			}
 		</style>
 	</head>
 
@@ -101,8 +128,8 @@
 
 							<!-- Section -->
 								<section>
-									<header class="major">
-										<h2>Cladevo features</h2>
+									<header id="fitures-div" class="major">
+										<h2 id="cladevo-fitures">Cladevo features</h2>
 									</header>
 									<div class="features">
 										<article>
@@ -136,6 +163,11 @@
 										</article>
 									</div>
 								</section>
+								<hr/>
+								<footer class="main-footer">
+									<p class="copyright">&copy; Cladevo. This project is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.</p>
+									<p class="copyright">Built with components from <a href="https://html5up.net" target="_blank">HTML5 UP</a>, licensed under <a href="https://html5up.net/license" target="_blank">Creative Commons Attribution 3.0 License</a>.</p>
+								</footer>
 						</div>
 					</div>
 

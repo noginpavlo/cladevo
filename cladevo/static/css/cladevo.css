@@ -2272,44 +2272,6 @@ button,
     margin-top: 0;
     padding-top: 0; }
 
-/* Hide the prev and next buttons by default */
-.carousel-controls .prev,
-.carousel-controls .next {
-    opacity: 0;
-    pointer-events: none;  /* Makes sure the buttons aren't clickable when hidden */
-    transition: opacity 0.3s ease; /* Smooth transition for appearing/disappearing */
-}
-
-/* Show buttons when user hovers over the carousel container */
-.carousel-container:hover .carousel-controls .prev,
-.carousel-container:hover .carousel-controls .next {
-    opacity: 1;
-    pointer-events: auto; /* Allow clicking on the buttons */
-}
-
-/*Style the buttons to make them look nice */
-.carousel-controls .prev,
-.carousel-controls .next {
-    position: absolute;
-    top: 50%;
-    font-size: 30px;
-    color: white;
-    background: rgba(0, 0, 0, 0.5);
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-    transform: translateY(-50%);
-}
-
-.carousel-controls .prev {
-    left: 10px;
-}
-
-.carousel-controls .next {
-    right: 10px;
-}
-
 .carousel-container {
 	position: relative;
 	width: 100%;
@@ -2566,4 +2528,3 @@ html {
     color: #0D92F4;
     font-weight: bold;
 }
-
