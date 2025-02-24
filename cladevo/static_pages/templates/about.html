@@ -64,12 +64,13 @@
                         <details>
                             <summary><h3 id="story" class="blue-ref">Let me tell you the story behind Cladevo's creation...</h3></summary>
                             <p  class="theory-text">I was an undergraduate student when Russia invaded my country. Like millions of others, I had to leave Ukraine, searching for shelter and peace across Europe. Many Ukrainians were constantly on the move, relocating twice, even three times a year—and I was one of them. A lot changed in my life, but I was determined to keep working on my diploma project, which I was doing at ICBGI (Institute of Cell Biology and Genetic Engineering).</p>
-                            <p  class="theory-text">By the time I graduated, the study my project was part of was still unfinished. My colleagues at ICBGI and I had gathered a ton of valuable data on spelt in the lab, but it all needed bioinformatics analysis—specifically, phylogenetic trees. And for me, that meant doing everything while moving from place to place with very limited resources.</p>
+                            <p  class="theory-text">By the time I graduated, the study my project was part of was still unfinished. My colleagues at ICBGI and I had gathered a ton of valuable data on spelt in the lab, but it all needed bioinformatics analysis—specifically, phylogenetic trees. And for me, that meant building the trees while moving from place to place with limited resources.</p>
                             <p  class="theory-text">At the time, all I had was an old MacBook. Later, I managed to buy a second-hand desktop PC, but I had to sell it pretty soon because—surprise, surprise—I had to move again. Every time I switched devices, I had to reinstall everything from scratch. Running DarWin on Wine emulator was a nightmare, and even when I finally got it to work, moving files in and out of Wine, processing them, and copying them back to my system was just painfully inconvenient.</p>
-                            <p  class="theory-text">And that’s when I had a thought:<br>What if I didn’t need to go through all this?<br>What if all I needed was a web browser?<br>What if I didn’t have to struggle with DarWin’s complex interface and endless file management?<br>(Anyone who has used this software will get what I mean right away.)<br>What if there was a simpler, faster tool that automated all of this?</p>
-                            <p  class="theory-text">That idea stuck with me, and I decided to build it myself. There are already a few options online, but none that supported SSR marker data analysis, which I specifically needed. So, I made one—and honestly, it was fun!</p>
-                            <p  class="theory-text">Now, I just hope that Cladevo helps others too. I hope it saves people from the endless cycle of installations, Wine tricks, and sorting through way too many files and folders. If you find it useful, great! And if you run into any issues, feel free to reach out—my contact info is in the Contacts section.</p>
-                            <p  class="theory-text">Just a heads-up: I’m managing Cladevo completely on my own, with zero funding, so I can’t guarantee I’ll be able to reply to every email. But if you really need a response, just mark your email in the subject line, and I’ll do my best. Even if I can’t reply, I truly appreciate all feedback and suggestions!</p>
+                            <p  class="theory-text">And that’s when I had a thought:<br>What if I didn’t need installing the sofrware all the time?<br>What if all I needed was a web browser?<br>What if I didn’t have to struggle with DarWin’s complex interface and endless file management?<br>(Anyone who has used this software will get what I mean right away.)<br>What if there was a simpler, faster tool that automated all of this?</p>
+                            <p  class="theory-text">❗Just to be clear—although I found DarWin’s file management system a bit busy and inconvenient, I want to emphasize that it’s an amazing, well-established tool for bioinformatics. It’s packed with powerful features and built by professionals, for professionals. I’ve used it a lot, I still do, and I highly recommend checking it out! You can find it following this link: <a href="https://darwin.cirad.fr/index.php" target="_blank">DarWin</a>.</p>
+                            <p  class="theory-text">That idea stuck with me, and I decided to build it myself. There are already a few options online, but none that supported SSR genotyping data, which I specifically needed. So, I made one—and honestly, it was fun!</p>
+                            <p  class="theory-text">Now, I just hope that one will find Cladevo helpful. I hope it saves some time for you from unnecessary installation, Wine tricks (if preferred system is not Widnows), and sorting through way too many files and folders. So if you find it useful, great! And if you run into any issues, feel free to reach out—my contact info is in the Contacts section.</p>
+                            <p  class="theory-text">Just a heads-up: I’m managing Cladevo completely on my own, with zero funding, so I can’t guarantee I’ll be able to reply to every email. But if you really need a response, just mark your email in the subject line (something like "Requires a response"), and I’ll do my best. Even if I can’t reply, I truly appreciate all feedback and suggestions!</p>
                         </details>
                         <hr/>
 
@@ -85,7 +86,7 @@
                             <li>
                                <h3>Molecular Markers & PCR Gel Electrophoresis</h3>
                                     <ul>
-                                        <li><p class="theory-text" style="text-indent: 0em;">Cladevo supports the analysis of molecular markers, often used in combination with PCR (Polymerase Chain Reaction) and gel electrophoresis techniques. These methods are frequently employed in genetic research for identifying specific DNA sequences and comparing genetic diversity. Researchers working with data from gel electrophoresis experiments can easily integrate their results into Cladevo for phylogenetic analysis. The tool is also compatible with FASTA files and allows users to directly paste DNA sequences into the app, providing flexibility for various types of input.</p></li>
+                                        <li><p class="theory-text" style="text-indent: 0em;">Cladevo supports the analysis of molecular markers, often used in combination with PCR (Polymerase Chain Reaction) and gel electrophoresis techniques—SSR genotyping. These methods are frequently employed in genetic research for identifying specific DNA sequences and comparing genetic diversity. Researchers working with data from gel electrophoresis experiments can easily integrate their results into Cladevo for phylogenetic analysis. The tool is also compatible with FASTA files and allows users to directly paste DNA sequences into the app, providing flexibility for various types of input.</p></li>
                                     </ul>
                             </li>
                             <li>
@@ -103,7 +104,7 @@
                              <li>
                                 <h3>Educational Resources</h3>
                                 <ul>
-                                    <li><p class="theory-text" style="text-indent: 0em;">Cladevo includes basic educational materials to help users understand the underlying algorithms. Information about UPGMA and Neighbor-Joining is readily available, allowing users to better comprehend the analysis behind their phylogenetic trees.</p></li>
+                                    <li><p class="theory-text" style="text-indent: 0em;">Cladevo includes basic educational materials to brief students on what underlying algorithms are. Information about UPGMA and Neighbor-Joining is readily available in <a href="{% url 'theory' %}" target="_blank">Theory</a> section.</p></li>
                                 </ul>
                             </li>
                              <li>
@@ -113,6 +114,11 @@
                                 </ul>
                             </li>
                         </ol>
+                        <hr/>
+                        <h2 id="contacts" class="theory-h2-text">About & Contact</h2>
+                        <p class="theory-text">Hi, I'm Nohin Pavlo, a biotechnology graduate from Kyiv Polytechnic Institute (KPI). I created Cladevo on my own, inspired by my own research challenges. Currently, I'm based in Vilhelmina, Sweden. If you have any feedback, suggestions, or bug reports, feel free to reach out! <br>Email:<br>nohinpavlo@gmail.com</p>
+                        <p class="theory-text"></p>
+                        <p class="theory-text"></p>
                         <hr/>
                     </div>
 
