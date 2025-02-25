@@ -16,7 +16,7 @@ def clear_plots():
     plots_directory = os.path.join(settings.BASE_DIR, 'static', 'plots')
     entries = os.listdir(plots_directory)
     files = [entry for entry in entries if os.path.isfile(os.path.join(plots_directory, entry))]
-    if len(files) > 5:
+    if len(files) > 20:
         for file in files:
             file_path = os.path.join(plots_directory, file)
             try:
@@ -26,8 +26,26 @@ def clear_plots():
                 print(f'Error deleting {file}: {e}')
 
         return "All plots were deleted."
-    print("No plots were deleted (less than 5 files).")
+    print("No plots were deleted (less than 20 files).")
     return "No plots were deleted (less than 20 files)."
+
+
+def clear_uploads():
+    uploads_directory = os.path.join(settings.BASE_DIR, 'static', 'uploads')
+    entries = os.listdir(uploads_directory)
+    files = [entry for entry in entries if os.path.isfile(os.path.join(uploads_directory, entry))]
+    if len(files) > 20:
+        for file in files:
+            file_path = os.path.join(uploads_directory, file)
+            try:
+                os.remove(file_path)
+                print(f'Deleted: {file}')
+            except Exception as e:
+                print(f'Error deleting {file}: {e}')
+
+        return "All uploads were deleted."
+    print("No uploads were deleted (less than 20 files).")
+    return "No uploads were deleted (less than 20 files)."
 
 
 def parameters(request):
@@ -78,6 +96,7 @@ def submit_sequences(request):
 
             print("Received Sequences:", sequence_names, sequence_data)
 
+            clear_uploads()
             clear_plots()
             calculator.align_sequences(sequence_names, sequence_data)
             calculator.calculate_dissimilarity_matrix()
@@ -103,6 +122,8 @@ def submit_sequences(request):
 def submit_file(request):
     if request.method == "POST" and request.FILES.get("file-upload"):
         file = request.FILES["file-upload"]
+
+        clear_uploads()
 
         # Save the uploaded file
         upload_dir = "static/uploads"  # Directory to save files
