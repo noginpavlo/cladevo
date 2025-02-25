@@ -2524,7 +2524,8 @@ html {
     color: #E4003A;
 }
 
-.blue-ref {
-    color: #0D92F4;
+.red-ref {
+    color: blue;
     font-weight: bold;
+    font-size: 24px;
 }
