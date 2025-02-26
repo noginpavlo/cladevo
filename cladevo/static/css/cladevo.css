@@ -2192,6 +2192,13 @@ button,
   #footer .copyright a {
     color: inherit; }
 
+/* Home footer */
+#home-footer .main-footer .copyright{
+  color: #9fa3a6;
+  font-size: 0.9em; }
+  #home-footer .main-footer .copyright a {
+    color: inherit; }
+
 /* Menu */
 #menu ul {
   -moz-user-select: none;
