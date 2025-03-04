@@ -1,0 +1,8 @@
+# Ignore all __pycache__ directories
+**/__pycache__/
+
+# Ignore virtual environment
+.venv/
+
+# You can also be more specific if needed (optional)
+cladevo/__pycache__/
