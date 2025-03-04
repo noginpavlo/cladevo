@@ -7,6 +7,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.middleware.csrf import get_token
 from tree_builder.services.calculator_upgma import TreeBuilder
 
+# branch
+
 
 calculator = TreeBuilder()
 method = "upgma"
@@ -44,7 +46,6 @@ def clear_uploads():
                 print(f'Error deleting {file}: {e}')
 
         return "All uploads were deleted."
-    print("No uploads were deleted (less than 20 files).")
     return "No uploads were deleted (less than 20 files)."
 
 
