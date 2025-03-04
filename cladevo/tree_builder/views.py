@@ -7,8 +7,6 @@ from django.views.decorators.csrf import csrf_protect
 from django.middleware.csrf import get_token
 from tree_builder.services.calculator_upgma import TreeBuilder
 
-# branch
-
 
 calculator = TreeBuilder()
 method = "upgma"
