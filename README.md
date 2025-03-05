@@ -4,18 +4,6 @@
 #### Create trees quickly and efficiently with minimal effort. 
 #### Example:
 ![Logo](cladevo/static/images/tree11.png)
-## Table of Contents
-
-### [Overview](##overview)  
-### [Demo Video](#demo-video)  
-### [Features & Functionality](#features--functionality)  
-### [Installation & Setup](#installation--setup)  
-### [Usage](#usage)  
-### [Educational Resources](#educational-resources)  
-### [License](#license)  
-### [Contributing](#contributing)  
-### [Acknowledgments](#acknowledgments)  
-
 
 ## Overview
 
