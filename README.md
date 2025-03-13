@@ -13,7 +13,7 @@ This tool is ideal for researchers, educators, and students who need an accessib
 
 ## Demo Video
 
-Watch the Cladevo presentation and example workflow (Replace with actual video link)
+Watch the Cladevo presentation and example workflow (Not available for now, sorry😅)
 
 ## Features & Functionality
 
