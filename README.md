@@ -54,16 +54,6 @@ This tool is ideal for anybody who needs to perform phylogenetic analysis avoidi
 
 * Download Results: Save the tree visualization for further analysis.
 
-## Educational Resources
-
-Cladevo provides learning materials to help users understand the underlying algorithms:
-
-* Theory Section: Learn about UPGMA and Neighbor-Joining.
-
-* How to Use Section: Watch video tutorials on using Cladevo effectively.
-
-(The sections are available inside the app after installation.)
-
 ## License
 
 This project is released under the [MIT License](https://opensource.org/license/MIT), allowing users to freely use, modify, and distribute Cladevo's code while retaining the original copyright notice. However, Cladevo's frontend is built using an [HTML5 UP](https://html5up.net/) template, which falls under the [Creative Commons Attribution 3.0 License](https://html5up.net/license)—proper credit must be given to HTML5 UP if frontend components are used or modified.
