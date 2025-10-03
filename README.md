@@ -30,6 +30,17 @@ Watch the Cladevo presentation and example workflow (Not available for now, sorr
 * Educational Resources: Learn about UPGMA and NJ algorithms in the Theory section.
 
 * Completely Free: No subscription, authentication, or ads—just an open-access tool for all users.
+* 
+## **Tech Stack**
+
+| Layer | Technologies |
+|-------|--------------|
+| **Backend** | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white) ![Django](https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white) |
+| **Frontend** | ![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat&logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) |
+| **Tools / DevOps** | ![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white) ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white) |
+| **Bioinformatics Tools** | ![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white) ![Biopython](https://img.shields.io/badge/Biopython-3673A5?style=flat&logo=biopython&logoColor=white) ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=flat&logo=matplotlib&logoColor=white) |
+
+---
 
 ## Installation & Setup
 
