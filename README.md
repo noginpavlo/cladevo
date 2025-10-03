@@ -1,36 +1,30 @@
-# Cladevo
-#### Cladevo is a tool for constructing phylogenetic trees, enabling rapid analysis of genetic data. It is designed for researchers, educators, and students who need a simple and accessible solution for phylogenetic analysis without using advanced software.
+# 🌿 Cladevo
 
-#### Create trees quickly and efficiently with minimal effort. 
-#### Example:
+**_Create phylogenetic trees quickly and efficiently with minimal effort!_**
+
+## **What is Cladevo?**
+
+### Cladevo is a lightweight, open-access tool for constructing phylogenetic trees. It enables rapid analysis of genetic data, designed for researchers, educators, and students who need a simple and accessible solution without relying on heavy bioinformatics software.
+ 
+### Example dendrogram:
 ![Logo](cladevo/static/images/tree11.png)
 
 ## Overview
 
-Cladevo is an online tool designed for constructing phylogenetic trees using the UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-Joining (NJ) algorithms. It allows users to generate dendrograms quickly based on flexible data input methods, including FASTA files, Excel files, or manual DNA sequence input.
+Cladevo urilizes UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-Joining (NJ) algorithms. It allows generating dendrograms quickly based on flexible data input methods, including FASTA files, Excel files, or manual DNA sequence input.
 
-This tool is ideal for researchers, educators, and students who need an accessible solution for phylogenetic analysis. Scientists can use Cladevo for preliminary data exploration before transitioning to more advanced bioinformatics tools like MEGA or DarWin, while students can gain hands-on experience with phylogenetic tree construction.
+This tool is ideal for anybody who needs to perform phylogenetic analysis avoiding steep learning curve typical for this kind of software. Scientists can use Cladevo for preliminary data exploration before transitioning to more advanced bioinformatics tools like `MEGA` or `DarWin`, while students can gain hands-on experience with phylogenetic tree construction and aquire basic understanding of such analisys in one place.
 
-## Demo Video
 
-Watch the Cladevo presentation and example workflow (Not available for now, sorry😅)
+## ✨ Features
 
-## Features & Functionality
+- 🌳 **Phylogenetic Tree Construction**: Neighbor-Joining (NJ) & UPGMA support  
+- 📂 **Flexible Input**: FASTA, Excel, or manual sequences  
+- ⚙️ **Automated Processing**: sequence alignment, dissimilarity matrix clustering, and dendrogram creation abstracted out
+- 🧬 **Molecular Marker Support**: real research data input support (SSR genotyping, PCR, gel electrophoresis)
+- ⚡ **Fast & Accessible**: no installation required when hosted online, Docker-ready for local use  
+- 📚 **Educational Resources**: built-in theory section on UPGMA & NJ algorithms
 
-* Phylogenetic Tree Construction: Supports Neighbor-Joining (NJ) and UPGMA algorithms for genetic relationship analysis.
-
-* Flexible Data Input: Accepts FASTA files, Excel files, or manually entered DNA sequences.
-
-* Automated Processing: Sequence alignment, dissimilarity matrix calculation, and dendrogram construction are fully automated.
-
-* Molecular Marker Analysis: Compatible with SSR genotyping, PCR, and gel electrophoresis data.
-
-* Speed & Accessibility: No installation required; generate trees in seconds.
-
-* Educational Resources: Learn about UPGMA and NJ algorithms in the Theory section.
-
-* Completely Free: No subscription, authentication, or ads—just an open-access tool for all users.
-* 
 ## **Tech Stack**
 
 | Layer | Technologies |
@@ -48,9 +42,12 @@ Watch the Cladevo presentation and example workflow (Not available for now, sorr
 
 #### For installation and running instructions, please refer to the Docker documentation, which provides detailed guidance on how to install Docker and run Docker images on your local machine: [Docker Installation and Running Guide](https://docs.docker.com/get-docker/)
 
-## Usage
+## How to Use Cladevo
 
-* Upload Your Data: Choose a FASTA or Excel file, or manually enter sequences.
+**_Navigate to `Build Your Tree` or `Get Started` section and input data in one of the following formats:_**
+
+* Manula DNA sequence data input:
+  ![Login GIF](assets/login.gif)
 
 * Select Algorithm: Choose between UPGMA and Neighbor-Joining.
 
