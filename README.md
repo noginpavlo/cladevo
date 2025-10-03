@@ -13,7 +13,7 @@
 
 Cladevo urilizes UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-Joining (NJ) algorithms. It allows generating dendrograms quickly based on flexible data input methods, including FASTA files, Excel files, or manual DNA sequence input.
 
-This tool is ideal for anybody who needs to perform phylogenetic analysis avoiding steep learning curve typical for this kind of software. Scientists can use Cladevo for preliminary data exploration before transitioning to more advanced bioinformatics tools like `MEGA` or `DarWin`, while students can gain hands-on experience with phylogenetic tree construction and aquire basic understanding of such analisys in one place.
+This tool is ideal for anybody who needs to perform phylogenetic analysis avoiding steep learning curve typical for this kind of software. Scientists can use Cladevo for preliminary data exploration before transitioning to more advanced bioinformatics tools like `MEGA` or `DarWin`, while students can gain hands-on experience with phylogenetic tree construction and aquire basic understanding of the techniques in one place.
 
 
 ## ✨ Features
