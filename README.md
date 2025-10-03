@@ -44,14 +44,13 @@ This tool is ideal for anybody who needs to perform phylogenetic analysis avoidi
 
 ## How to Use Cladevo
 
-**_Navigate to `Build Your Tree` or `Get Started` section and input data in one of the following formats:_**
-
-* Manula DNA sequence data input:
-  ![Login GIF](assets/login.gif)
-
-* Select Algorithm: Choose between UPGMA and Neighbor-Joining.
-
-* Generate Tree: Click the Generate button and get your phylogenetic tree instantly.
+**_Navigate to `Build Your Tree` or `Get Started` section. Select Algorithm: Choose between UPGMA and Neighbor-Joining. Input data in one of the following formats:_**
+* Manual DNA sequence data input.
+  ![Login GIF](assets/manual.gif)
+* FASTA file DNA sequence data input.
+  ![Login GIF](assets/fasta.gif)
+* EXCEL file DNA sequence data input.
+  ![Login GIF](assets/excel.gif)
 
 * Download Results: Save the tree visualization for further analysis.
 
