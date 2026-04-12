@@ -1,14 +1,27 @@
-from django.shortcuts import render
+"""Class-based views for the static informational pages of Cladevo."""
 
-# Create your views here.
-def home(request):
-    return render(request, "home.html")
+from django.views.generic import TemplateView
 
-def docs(request):
-    return render(request, "docs.html")
 
-def theory(request):
-    return render(request, "theory.html")
+class HomeView(TemplateView):
+    """Renders the home landing page."""
 
-def about(request):
-    return render(request, "about.html")
+    template_name = "home.html"
+
+
+class DocsView(TemplateView):
+    """Renders the how-to-use documentation page."""
+
+    template_name = "docs.html"
+
+
+class TheoryView(TemplateView):
+    """Renders the algorithm theory page."""
+
+    template_name = "theory.html"
+
+
+class AboutView(TemplateView):
+    """Renders the about page."""
+
+    template_name = "about.html"
