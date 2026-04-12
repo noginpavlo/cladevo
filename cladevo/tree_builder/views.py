@@ -4,15 +4,19 @@ import os
 from django.conf import settings
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
-from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.decorators.csrf import csrf_protect
+from django.views.generic import TemplateView
+
 from tree_builder.services.calculator_upgma import TreeBuilder
 
 calculator = TreeBuilder()
 method = "upgma"
 
 
-def clear_plots():
+def _clear_plots() -> str:
+    """Delete all files in the plots directory if there are more than 20."""
     plots_directory = os.path.join(settings.BASE_DIR, "static", "plots")
     entries = os.listdir(plots_directory)
     files = [entry for entry in entries if os.path.isfile(os.path.join(plots_directory, entry))]
@@ -24,13 +28,13 @@ def clear_plots():
                 print(f"Deleted: {file}")
             except Exception as e:
                 print(f"Error deleting {file}: {e}")
-
         return "All plots were deleted."
     print("No plots were deleted (less than 20 files).")
     return "No plots were deleted (less than 20 files)."
 
 
-def clear_uploads():
+def _clear_uploads() -> str:
+    """Delete all files in the uploads directory if there are more than 20."""
     uploads_directory = os.path.join(settings.BASE_DIR, "static", "uploads")
     entries = os.listdir(uploads_directory)
     files = [entry for entry in entries if os.path.isfile(os.path.join(uploads_directory, entry))]
@@ -42,111 +46,126 @@ def clear_uploads():
                 print(f"Deleted: {file}")
             except Exception as e:
                 print(f"Error deleting {file}: {e}")
-
         return "All uploads were deleted."
     return "No uploads were deleted (less than 20 files)."
 
 
-def parameters(request):
-    return render(request, "tree_builder/parameters.html")
+class ParametersView(TemplateView):
+    """Renders the algorithm and input-type selection page."""
+
+    template_name = "tree_builder/parameters.html"
 
 
-def sequence_input(request):
-    return render(request, "tree_builder/input.html")
+class SequenceInputView(TemplateView):
+    """Renders the manual DNA sequence entry page."""
+
+    template_name = "tree_builder/input.html"
 
 
-def show_result(request, unique_id):
-    print(f"Received unique_id: {unique_id}")
-    if not unique_id:
-        print("Error: No unique ID provided")
-        return "Error: No unique ID provided", 400
+class ShowResultView(TemplateView):
+    """Renders the result page displaying the generated phylogenetic tree."""
 
-    return render(request, "tree_builder/result.html", {"unique_id": unique_id})
+    template_name = "tree_builder/result.html"
+
+    def get_context_data(self, **kwargs) -> dict:
+        """Inject the unique_id URL kwarg into the template context."""
+        context = super().get_context_data(**kwargs)
+        unique_id = self.kwargs.get("unique_id")
+        if not unique_id:
+            print("Error: No unique ID provided")
+        else:
+            print(f"Received unique_id: {unique_id}")
+        context["unique_id"] = unique_id
+        return context
 
 
-def get_csrf_token(request):
-    """Return the CSRF token as JSON for AJAX requests."""
-    return JsonResponse({"csrfToken": get_token(request)})
+class CsrfTokenView(View):
+    """Returns the current CSRF token as JSON for use in AJAX requests."""
+
+    def get(self, request) -> JsonResponse:
+        """Respond with the CSRF token."""
+        return JsonResponse({"csrfToken": get_token(request)})
 
 
-@csrf_protect  # Enables CSRF protection
-def get_method(request):
-    global method
+@method_decorator(csrf_protect, name="dispatch")
+class GetMethodView(View):
+    """Accepts a POST request to update the global tree-building algorithm choice."""
 
-    if request.method == "POST":
-        method = request.POST.get("method")  # Get method from POST data
-        if method:
+    def post(self, request) -> JsonResponse:
+        """Store the selected method ('upgma' or 'nj') in the module-level global."""
+        global method
+        selected = request.POST.get("method")
+        if selected:
+            method = selected
             print(f"Now method used is {method}")
             return JsonResponse({"message": "Method updated successfully"}, status=200)
-        else:
-            return JsonResponse({"error": "No method selected"}, status=400)
-
-    return JsonResponse({"error": "Invalid request method"}, status=405)
+        return JsonResponse({"error": "No method selected"}, status=400)
 
 
-@csrf_protect
-def submit_sequences(request):
-    if request.method == "POST":
+@method_decorator(csrf_protect, name="dispatch")
+class SubmitSequencesView(View):
+    """Accepts a JSON POST of named DNA sequences and runs the full tree pipeline."""
+
+    def post(self, request) -> JsonResponse:
+        """Parse the request body, run the pipeline, and return a redirect URL."""
         try:
-            data = json.loads(request.body)  # Read JSON data
-
-            sequence_names = data.get("sequence_name", [])  # Get array of names
-            sequence_data = data.get("sequence_data", [])  # Get array of sequences
-
-            print("Received Sequences:", sequence_names, sequence_data)
-
-            clear_uploads()
-            clear_plots()
-            calculator.align_sequences(sequence_names, sequence_data)
-            calculator.calculate_dissimilarity_matrix()
-            calculator.build_tree(method)
-
-            unique_id = calculator.visualize_tree()
-
-            if unique_id is None:
-                return JsonResponse({"error": "Tree visualization failed"}, status=400)
-
-            redirect_url = f"/tree_builder/result/{unique_id}/"
-
-            return JsonResponse(
-                {"message": "Data received successfully!", "redirect_url": redirect_url}
-            )
-
+            data = json.loads(request.body)
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
 
-    else:
-        return JsonResponse({"error": "Invalid request method"}, status=405)
+        sequence_names = data.get("sequence_name", [])
+        sequence_data = data.get("sequence_data", [])
+
+        print("Received Sequences:", sequence_names, sequence_data)
+
+        _clear_uploads()
+        _clear_plots()
+        calculator.align_sequences(sequence_names, sequence_data)
+        calculator.calculate_dissimilarity_matrix()
+        calculator.build_tree(method)
+
+        unique_id = calculator.visualize_tree()
+
+        if unique_id is None:
+            return JsonResponse({"error": "Tree visualization failed"}, status=400)
+
+        redirect_url = f"/tree_builder/result/{unique_id}/"
+        return JsonResponse(
+            {"message": "Data received successfully!", "redirect_url": redirect_url}
+        )
 
 
-@csrf_protect
-def submit_file(request):
-    if request.method == "POST" and request.FILES.get("file-upload"):
+@method_decorator(csrf_protect, name="dispatch")
+class SubmitFileView(View):
+    """Accepts a file upload (FASTA or Excel) and runs the full tree pipeline."""
+
+    def post(self, request) -> JsonResponse:
+        """
+        Save the uploaded file, run the appropriate pipeline entry point, and return a redirect URL.
+        """
+        if not request.FILES.get("file-upload"):
+            return JsonResponse({"error": "Invalid request"}, status=400)
+
         file = request.FILES["file-upload"]
 
-        clear_uploads()
+        _clear_uploads()
 
-        # Save the uploaded file
-        upload_dir = "static/uploads"  # Directory to save files
-        os.makedirs(upload_dir, exist_ok=True)  # Ensure the directory exists
+        upload_dir = "static/uploads"
+        os.makedirs(upload_dir, exist_ok=True)
         file_path = os.path.join(upload_dir, file.name)
 
         with open(file_path, "wb+") as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
 
-        # Check file extensions
         if file.name.lower().endswith(".fasta"):
-            # Handle FASTA file
             calculator.align_sequences(fasta_file=file_path)
         elif file.name.lower().endswith((".xls", ".xlsx")):
-            # Handle Excel file
             calculator.reformat(file_path)
         else:
-            # For unsupported file types
             return JsonResponse({"error": "Unsupported file type"}, status=400)
 
-        clear_plots()
+        _clear_plots()
         calculator.calculate_dissimilarity_matrix()
         calculator.build_tree(method)
         unique_id = calculator.visualize_tree()
@@ -154,10 +173,5 @@ def submit_file(request):
         if unique_id is None:
             return JsonResponse({"error": "Tree visualization failed"}, status=400)
 
-        # Build the redirect URL
         redirect_url = f"/tree_builder/result/{unique_id}/"
-
-        # Return the URL as JSON
         return JsonResponse({"redirect_url": redirect_url})
-
-    return JsonResponse({"error": "Invalid request"}, status=400)
