@@ -71,7 +71,6 @@ class SequenceAligner:
             self._write_clustal_aln_file(data)
             return MultipleSeqAlignment(seq_records)
         except Exception as e:
-            print(f"An error occurred: {e}")
             return None
 
     def _write_temp_fasta(self, names: List[str], sequences: List[str]) -> str:
@@ -112,9 +111,7 @@ class SequenceAligner:
         """
         try:
             alignment = AlignIO.read(aln_path, "clustal")
-            print("Alignment executed")
         except FileNotFoundError:
-            print(f"Alignment file not found: {aln_path}")
             return None
         finally:
             fasta_path = aln_path.replace("_aligned.aln", ".fasta")
@@ -123,7 +120,6 @@ class SequenceAligner:
             if os.path.exists(aln_path):
                 os.remove(aln_path)
 
-        print(alignment)
         return alignment
 
     def _excel_rows_to_seq_records(
@@ -164,20 +160,10 @@ class DistanceMatrixCalculator:
         Returns None if the alignment is None.
         """
         if alignment is None:
-            print("No alignment data available. Run align_sequences first.")
             return None
 
-        print("Loaded alignment:")
-        for record in alignment:
-            print(f"{record.id}: {record.seq}")
-
         calculator = DistanceCalculator("identity")
-        distance_matrix = calculator.get_distance(alignment)
-
-        print("\nDissimilarity Matrix:")
-        print(distance_matrix)
-
-        return distance_matrix
+        return calculator.get_distance(alignment)
 
 
 class PhylogeneticTreeConstructor:
@@ -193,7 +179,6 @@ class PhylogeneticTreeConstructor:
         Raises ValueError for unrecognised method names.
         """
         if distance_matrix is None:
-            print("No distance matrix available. Run calculate_dissimilarity_matrix first.")
             return None
 
         constructor = DistanceTreeConstructor()
@@ -219,7 +204,6 @@ class TreeVisualizer:
         drawing.  Returns None if tree is None.
         """
         if tree is None:
-            print("No tree data available. Build tree first.")
             return None
 
         save_directory = os.path.join("static", "plots")
@@ -227,7 +211,6 @@ class TreeVisualizer:
             os.makedirs(save_directory)
 
         unique_id = str(uuid.uuid4())
-        print(unique_id)
 
         if output_file is None:
             output_file = os.path.join(
