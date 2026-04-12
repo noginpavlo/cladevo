@@ -1,216 +1,331 @@
+"""
+Phylogenetic tree construction pipeline.
+
+Provides the TreeBuilder orchestrator and its constituent single-responsibility
+collaborators: SequenceAligner, DistanceMatrixCalculator,
+PhylogeneticTreeConstructor, and TreeVisualizer.
+"""
+
+import os
 import subprocess
-import pandas as pd
 import tempfile
-from Bio import AlignIO
+import uuid
+from typing import List, Optional
+
+import matplotlib
+import matplotlib.pyplot as plt
+import pandas as pd
+from Bio import AlignIO, Phylo
 from Bio.Align import MultipleSeqAlignment
+from Bio.Phylo.TreeConstruction import (
+    DistanceCalculator,
+    DistanceTreeConstructor,
+    BaseTree,
+)
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
-import os
-import matplotlib.pyplot as plt
-from Bio import Phylo
-import matplotlib
-import uuid
 
-matplotlib.use('Agg')
-
-class TreeBuilder:
-    def __init__(self):
-        self.aligned_file = None
-        self.dissimilarity_matrix = None
-        self.tree = None
-        self.n_seq = 2
+matplotlib.use("Agg")
 
 
-    def align_sequences(self, list1=None, list2=None, fasta_file=None):
+class SequenceAligner:
+    """Produces a MultipleSeqAlignment from raw sequences, FASTA files, or Excel files."""
 
+    def align_sequences(
+        self,
+        list1: Optional[List[str]] = None,
+        list2: Optional[List[str]] = None,
+        fasta_file: Optional[str] = None,
+    ) -> Optional[MultipleSeqAlignment]:
+        """Align DNA sequences using ClustalW and return the resulting alignment.
+
+        Accepts either a pair of parallel lists (names and sequences) or a path
+        to an existing FASTA file.  Returns None if ClustalW fails or the output
+        alignment file cannot be read.
+        """
         if not (list1 and list2) and not fasta_file:
             raise ValueError("No data passed to align_sequences")
 
-        elif list1 and list2:
-            # Create a temporary FASTA file to hold the input sequences
-            with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.fasta') as temp_fasta:
-                for seq in list2:
-                    if isinstance(seq, str):
-                        seq = SeqRecord(Seq(seq), id=f"{list1[list2.index(seq)]}")
-                    temp_fasta.write(f">{seq.id}\n{seq.seq}\n")
-                temp_fasta_name = temp_fasta.name  # Save the temp file name
+        if list1 and list2:
+            input_path = self._write_temp_fasta(list1, list2)
+        else:
+            input_path = fasta_file
 
-        elif fasta_file:
-            # Use the provided FASTA file directly
-            temp_fasta_name = fasta_file
+        output_aln = self._run_clustalw(input_path)
+        if output_aln is None:
+            return None
 
-        # Run ClustalW to align the sequences
-        output_aln = temp_fasta_name.replace('.fasta', '_aligned.aln')  # Define output file
+        return self._read_alignment(output_aln)
 
-        clustal_command = [
-            '/usr/bin/clustalw',
-            f'-INFILE={temp_fasta_name}',
-            f'-OUTFILE={output_aln}',
-            '-ALIGN'
-        ]
+    def reformat(self, xls_file_path: str) -> Optional[MultipleSeqAlignment]:
+        """Convert an Excel SSR genotyping file into a MultipleSeqAlignment.
 
-        # Run the ClustalW command
-        try:
-            subprocess.run(clustal_command, check=True)
-        except subprocess.CalledProcessError as e:
-            # print(f"Error running ClustalW: {e}")
-            return
-
-        # Read the alignment from the generated .aln file
-        try:
-            alignment = AlignIO.read(output_aln, "clustal")
-            print("Alignment executed")
-
-        except FileNotFoundError:
-            print(f"Alignment file not found: {output_aln}")
-            return
-
-        self.aligned_file = alignment
-        print(self.aligned_file)
-
-        os.remove(temp_fasta_name)
-        os.remove(output_aln)
-
-    def reformat(self, xls_file_path):
-        """
-        Processes an Excel file to create a correctly structured .aln file and
-        generates a MultipleSeqAlignment object.
-
-        :param xls_file_path: Path to the Excel file.
+        Binary marker values (1 / 0) are encoded as nucleotides (A / T) so the
+        resulting alignment is compatible with Biopython's distance calculator.
+        Returns None if an error occurs during processing.
         """
         try:
-            # Read the Excel file into a DataFrame
             data = pd.read_excel(xls_file_path)
-
-            # Ensure there are no empty rows or columns
             data = data.dropna()
-
-            # Prepare the output path for the .aln file
-            output_path = "static/uploads/sequence_aligned.aln"
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
-            # Initialize list to store SeqRecords for alignment
-            seq_records = []
-
-            # Open the file for writing in Clustal format
-            with open(output_path, 'w') as aln_file:
-                # Write the Clustal header
-                aln_file.write("CLUSTAL W (1.83) multiple sequence alignment\n\n")
-
-                # Iterate through each row of the DataFrame
-                for _, row in data.iterrows():
-                    # Extract sequence ID from the first column
-                    seq_id = str(row.iloc[0]).replace(" ", "")
-
-                    # Create the sequence by concatenating the remaining columns
-                    sequence = ''.join(map(str, row.iloc[1:].values))
-
-                    # Replace '1' with 'A' and '0' with 'T'
-                    sequence = sequence.replace('1', 'A').replace('0', 'T')
-
-                    # Write to the .aln file in Clustal format
-                    aln_file.write(f"{seq_id:<10} {sequence}\n")
-
-                    # Create a SeqRecord and add it to the list
-                    seq_records.append(SeqRecord(Seq(sequence), id=seq_id))
-
-            # Create a MultipleSeqAlignment object from the SeqRecords
-            alignment = MultipleSeqAlignment(seq_records)
-
-            # Assign the alignment to the class attribute
-            self.aligned_file = alignment
-
-            # Clean up: Remove the temporary .aln file
-            os.remove(output_path)
-
+            seq_records = self._excel_rows_to_seq_records(data)
+            self._write_clustal_aln_file(data)
+            return MultipleSeqAlignment(seq_records)
         except Exception as e:
             print(f"An error occurred: {e}")
+            return None
+
+    def _write_temp_fasta(self, names: List[str], sequences: List[str]) -> str:
+        """Write name/sequence pairs to a temporary FASTA file and return its path."""
+        with tempfile.NamedTemporaryFile(
+            delete=False, mode="w", suffix=".fasta"
+        ) as temp_fasta:
+            for seq in sequences:
+                if isinstance(seq, str):
+                    record = SeqRecord(Seq(seq), id=f"{names[sequences.index(seq)]}")
+                temp_fasta.write(f">{record.id}\n{record.seq}\n")
+            return temp_fasta.name
+
+    def _run_clustalw(self, input_path: str) -> Optional[str]:
+        """Invoke ClustalW on the given FASTA file and return the output .aln path.
+
+        Returns None if the subprocess exits with a non-zero status.
+        Removes both the input FASTA and the output .aln file after reading,
+        but only removes the input when it was a temporary file created internally.
+        """
+        output_aln = input_path.replace(".fasta", "_aligned.aln")
+        clustal_command = [
+            "/usr/bin/clustalw",
+            f"-INFILE={input_path}",
+            f"-OUTFILE={output_aln}",
+            "-ALIGN",
+        ]
+        try:
+            subprocess.run(clustal_command, check=True)
+        except subprocess.CalledProcessError:
+            return None
+        return output_aln
+
+    def _read_alignment(self, aln_path: str) -> Optional[MultipleSeqAlignment]:
+        """Read a Clustal-format alignment file and return a MultipleSeqAlignment.
+
+        Cleans up the .aln file after reading. Returns None if the file is missing.
+        """
+        try:
+            alignment = AlignIO.read(aln_path, "clustal")
+            print("Alignment executed")
+        except FileNotFoundError:
+            print(f"Alignment file not found: {aln_path}")
+            return None
+        finally:
+            fasta_path = aln_path.replace("_aligned.aln", ".fasta")
+            if os.path.exists(fasta_path):
+                os.remove(fasta_path)
+            if os.path.exists(aln_path):
+                os.remove(aln_path)
+
+        print(alignment)
+        return alignment
+
+    def _excel_rows_to_seq_records(
+        self, data: pd.DataFrame
+    ) -> List[SeqRecord]:
+        """Convert DataFrame rows into SeqRecord objects with encoded sequences."""
+        seq_records = []
+        for _, row in data.iterrows():
+            seq_id = str(row.iloc[0]).replace(" ", "")
+            sequence = "".join(map(str, row.iloc[1:].values))
+            sequence = sequence.replace("1", "A").replace("0", "T")
+            seq_records.append(SeqRecord(Seq(sequence), id=seq_id))
+        return seq_records
+
+    def _write_clustal_aln_file(self, data: pd.DataFrame) -> None:
+        """Write a Clustal-format .aln file from a DataFrame and then remove it."""
+        output_path = "static/uploads/sequence_aligned.aln"
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as aln_file:
+            aln_file.write("CLUSTAL W (1.83) multiple sequence alignment\n\n")
+            for _, row in data.iterrows():
+                seq_id = str(row.iloc[0]).replace(" ", "")
+                sequence = "".join(map(str, row.iloc[1:].values))
+                sequence = sequence.replace("1", "A").replace("0", "T")
+                aln_file.write(f"{seq_id:<10} {sequence}\n")
+        os.remove(output_path)
 
 
-    def calculate_dissimilarity_matrix(self):
-        if self.aligned_file is None:
+class DistanceMatrixCalculator:
+    """Computes a pairwise distance matrix from a multiple sequence alignment."""
+
+    def calculate(
+        self, alignment: MultipleSeqAlignment
+    ) -> Optional[object]:
+        """Return an identity-based distance matrix for the given alignment.
+
+        Prints each record and the resulting matrix for diagnostic purposes.
+        Returns None if the alignment is None.
+        """
+        if alignment is None:
             print("No alignment data available. Run align_sequences first.")
-            return
+            return None
 
         print("Loaded alignment:")
-        for record in self.aligned_file:
+        for record in alignment:
             print(f"{record.id}: {record.seq}")
 
         calculator = DistanceCalculator("identity")
-        distance_matrix = calculator.get_distance(self.aligned_file)
+        distance_matrix = calculator.get_distance(alignment)
 
         print("\nDissimilarity Matrix:")
         print(distance_matrix)
 
-        self.dissimilarity_matrix = distance_matrix
+        return distance_matrix
 
 
-    def build_tree(self, method):
-        if self.dissimilarity_matrix is None:
+class PhylogeneticTreeConstructor:
+    """Builds a phylogenetic tree from a distance matrix using UPGMA or NJ."""
+
+    def build(
+        self, distance_matrix: object, method: str
+    ) -> Optional[BaseTree.Tree]:
+        """Construct and return a phylogenetic tree using the specified method.
+
+        Accepted method values are 'upgma' and 'nj' (case-insensitive).
+        Returns None if the distance matrix is None.
+        Raises ValueError for unrecognised method names.
+        """
+        if distance_matrix is None:
             print("No distance matrix available. Run calculate_dissimilarity_matrix first.")
-            return
+            return None
 
         constructor = DistanceTreeConstructor()
         if method.lower() == "upgma":
-            tree = constructor.upgma(self.dissimilarity_matrix)
-        elif method.lower() == "nj":
-            tree = constructor.nj(self.dissimilarity_matrix)
-        else:
-            raise ValueError(f"Unsupported method: {method}. Use 'upgma' or 'nj'.")
+            return constructor.upgma(distance_matrix)
+        if method.lower() == "nj":
+            return constructor.nj(distance_matrix)
+        raise ValueError(f"Unsupported method: {method}. Use 'upgma' or 'nj'.")
 
-        self.tree = tree
 
-    def visualize_tree(self, output_file=None, output_format="png"):
-        if self.tree is None:
+class TreeVisualizer:
+    """Renders a phylogenetic tree to a PNG file and returns a unique identifier."""
+
+    def visualize(
+        self,
+        tree: Optional[BaseTree.Tree],
+        output_file: Optional[str] = None,
+        output_format: str = "png",
+    ) -> Optional[str]:
+        """Draw the tree and save it to disk, returning the UUID used in the filename.
+
+        Saves to static/plots/ by default.  Clears internal node labels before
+        drawing.  Returns None if tree is None.
+        """
+        if tree is None:
             print("No tree data available. Build tree first.")
-            return
+            return None
 
-        """
-        Visualizes and optionally exports the phylogenetic tree with custom sample name styles.
-
-        :param output_file: Path to save the tree image (e.g., 'tree.png' or 'tree.jpg')
-        :param output_format: Format of the output file ('png', 'jpeg', etc.)
-        """
-        # Define the directory for saving plots
         save_directory = os.path.join("static", "plots")
-
-        # Ensure the directory exists; create it if it doesn't
         if not os.path.exists(save_directory):
             os.makedirs(save_directory)
 
-        # If no output file is provided, use a default filename
+        unique_id = str(uuid.uuid4())
+        print(unique_id)
+
         if output_file is None:
-            # Generate a unique ID and use it to create a unique file name
-            unique_id = str(uuid.uuid4())
-            print(unique_id)
-            output_file = os.path.join(save_directory, f"tree_{unique_id}.{output_format}")
+            output_file = os.path.join(
+                save_directory, f"tree_{unique_id}.{output_format}"
+            )
 
-        # Remove internal node labels (set name to None)
-        for clade in self.tree.find_clades():
+        self._strip_internal_labels(tree)
+        self._render_and_save(tree, output_file, output_format)
+
+        return unique_id
+
+    def _strip_internal_labels(self, tree: BaseTree.Tree) -> None:
+        """Remove name labels from all internal (non-terminal) nodes."""
+        for clade in tree.find_clades():
             if not clade.is_terminal():
-                clade.name = None  # Remove the label of internal nodes
+                clade.name = None
 
-        # Create a new Matplotlib figure
+    def _render_and_save(
+        self,
+        tree: BaseTree.Tree,
+        output_file: str,
+        output_format: str,
+    ) -> None:
+        """Create the Matplotlib figure, draw the tree, and write it to disk."""
         fig = plt.figure(figsize=(18, 12))
         ax = fig.add_subplot(1, 1, 1)
 
-        Phylo.draw(self.tree, axes=ax, do_show=False,
-                   branch_labels=lambda c: f"{c.branch_length:.3f}" if c.branch_length != 0 else None)
+        Phylo.draw(
+            tree,
+            axes=ax,
+            do_show=False,
+            branch_labels=lambda c: (
+                f"{c.branch_length:.3f}" if c.branch_length != 0 else None
+            ),
+        )
 
         for text in ax.texts:
             if text.get_text():
                 text.set_fontsize(14)
-                text.set_weight('bold')
+                text.set_weight("bold")
 
         ax.set_facecolor("whitesmoke")
 
-        # Save the tree image
-        plt.savefig(output_file, format=output_format, dpi=300)  # High resolution
-        # print(f"Tree saved to {output_file} in {output_format} format.")
-
-        # Close the figure to release memory and suppress GUI
+        plt.savefig(output_file, format=output_format, dpi=300)
         plt.close(fig)
 
-        # Return the unique ID
-        return unique_id
+
+class TreeBuilder:
+    """Orchestrates the full phylogenetic tree construction pipeline.
+
+    Delegates each stage to a focused collaborator:
+    alignment → distance matrix → tree construction → visualization.
+    Intermediate results are retained on instance attributes so that callers
+    can invoke the stages individually in sequence.
+    """
+
+    def __init__(self) -> None:
+        """Initialise the pipeline with empty state and collaborator instances."""
+        self.aligned_file: Optional[MultipleSeqAlignment] = None
+        self.dissimilarity_matrix: Optional[object] = None
+        self.tree: Optional[BaseTree.Tree] = None
+        self.n_seq: int = 2
+
+        self._aligner = SequenceAligner()
+        self._matrix_calculator = DistanceMatrixCalculator()
+        self._tree_constructor = PhylogeneticTreeConstructor()
+        self._visualizer = TreeVisualizer()
+
+    def align_sequences(
+        self,
+        list1: Optional[List[str]] = None,
+        list2: Optional[List[str]] = None,
+        fasta_file: Optional[str] = None,
+    ) -> None:
+        """Align sequences and store the result in self.aligned_file.
+
+        Accepts either parallel name/sequence lists or a FASTA file path.
+        """
+        self.aligned_file = self._aligner.align_sequences(list1, list2, fasta_file)
+
+    def reformat(self, xls_file_path: str) -> None:
+        """Parse an Excel SSR file and store the encoded alignment in self.aligned_file."""
+        self.aligned_file = self._aligner.reformat(xls_file_path)
+
+    def calculate_dissimilarity_matrix(self) -> None:
+        """
+        Compute the distance matrix from self.aligned_file and store in self.dissimilarity_matrix.
+        """
+        self.dissimilarity_matrix = self._matrix_calculator.calculate(self.aligned_file)
+
+    def build_tree(self, method: str) -> None:
+        """Build the phylogenetic tree from self.dissimilarity_matrix and store in self.tree."""
+        self.tree = self._tree_constructor.build(self.dissimilarity_matrix, method)
+
+    def visualize_tree(
+        self,
+        output_file: Optional[str] = None,
+        output_format: str = "png",
+    ) -> Optional[str]:
+        """Render self.tree to a PNG and return the UUID portion of the filename."""
+        return self._visualizer.visualize(self.tree, output_file, output_format)
