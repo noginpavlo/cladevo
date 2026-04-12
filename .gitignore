@@ -5,4 +5,5 @@
 .idea/
 *.iml
 .idea_modules/
-cladevo/cladevo/static/plots/*
+cladevo/static/plots/
+cladevo/static/images/
