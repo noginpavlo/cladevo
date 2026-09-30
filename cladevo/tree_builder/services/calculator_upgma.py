@@ -205,6 +205,7 @@ class TreeVisualizer:
         """
         if tree is None:
             return None
+        return tree
 
         save_directory = os.path.join("static", "plots")
         if not os.path.exists(save_directory):

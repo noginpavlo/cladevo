@@ -96,6 +96,7 @@ class TestSequenceAligner(unittest.TestCase):
         try:
             self.assertTrue(os.path.exists(path))
             with open(path, encoding="utf-8") as fh:
+            with open(path) as fh:
                 content = fh.read()
             self.assertIn(">seq1\nACGT\n", content)
             self.assertIn(">seq2\nTGCA\n", content)
