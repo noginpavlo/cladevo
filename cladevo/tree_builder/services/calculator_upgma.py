@@ -27,7 +27,7 @@ class TreeBuilder:
         if not (list1 and list2) and not fasta_file:
             raise ValueError("No data passed to align_sequences")
 
-        elif list1 and list2:
+        if list1 and list2:
             with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.fasta') as temp_fasta:
                 for seq in list2:
                     if isinstance(seq, str):
@@ -51,10 +51,9 @@ class TreeBuilder:
         try:
             subprocess.run(clustal_command, check=True)
         except subprocess.CalledProcessError as e:
-            # print(f"Error running ClustalW: {e}")
+            print(f"Error running ClustalW: {e}")
             return
 
-        # Read the alignment from the generated .aln file
         try:
             alignment = AlignIO.read(output_aln, "clustal")
             print("Alignment executed")
