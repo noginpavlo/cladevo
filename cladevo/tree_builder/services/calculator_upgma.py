@@ -28,7 +28,6 @@ class TreeBuilder:
             raise ValueError("No data passed to align_sequences")
 
         elif list1 and list2:
-            # Create a temporary FASTA file to hold the input sequences
             with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.fasta') as temp_fasta:
                 for seq in list2:
                     if isinstance(seq, str):
@@ -37,10 +36,8 @@ class TreeBuilder:
                 temp_fasta_name = temp_fasta.name  # Save the temp file name
 
         elif fasta_file:
-            # Use the provided FASTA file directly
             temp_fasta_name = fasta_file
 
-        # Run ClustalW to align the sequences
         output_aln = temp_fasta_name.replace('.fasta', '_aligned.aln')  # Define output file
 
         clustal_command = [
@@ -80,48 +77,22 @@ class TreeBuilder:
         :param xls_file_path: Path to the Excel file.
         """
         try:
-            # Read the Excel file into a DataFrame
             data = pd.read_excel(xls_file_path)
-
-            # Ensure there are no empty rows or columns
             data = data.dropna()
-
-            # Prepare the output path for the .aln file
             output_path = "static/uploads/sequence_aligned.aln"
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
-            # Initialize list to store SeqRecords for alignment
             seq_records = []
 
-            # Open the file for writing in Clustal format
             with open(output_path, 'w') as aln_file:
-                # Write the Clustal header
                 aln_file.write("CLUSTAL W (1.83) multiple sequence alignment\n\n")
-
-                # Iterate through each row of the DataFrame
                 for _, row in data.iterrows():
-                    # Extract sequence ID from the first column
                     seq_id = str(row.iloc[0]).replace(" ", "")
-
-                    # Create the sequence by concatenating the remaining columns
                     sequence = ''.join(map(str, row.iloc[1:].values))
-
-                    # Replace '1' with 'A' and '0' with 'T'
                     sequence = sequence.replace('1', 'A').replace('0', 'T')
-
-                    # Write to the .aln file in Clustal format
                     aln_file.write(f"{seq_id:<10} {sequence}\n")
-
-                    # Create a SeqRecord and add it to the list
                     seq_records.append(SeqRecord(Seq(sequence), id=seq_id))
-
-            # Create a MultipleSeqAlignment object from the SeqRecords
             alignment = MultipleSeqAlignment(seq_records)
-
-            # Assign the alignment to the class attribute
             self.aligned_file = alignment
-
-            # Clean up: Remove the temporary .aln file
             os.remove(output_path)
 
         except Exception as e:
